@@ -11,7 +11,7 @@ function App() {
           <h1>25 + 5 Clock</h1>
         </div>
         <div id="break-label">Break length</div>
-        <div>Session Length</div>
+        <div id="session-label">Session Length</div>
       </div>
     </>
   );
