@@ -31,7 +31,7 @@ function App() {
         </div>
         <div className="p-3 border-yellow-600 rounded-xl">
           <h2 id="timer-label">Session</h2>
-          <p>25 : 00</p>
+          <p id="time-left">25 : 00</p>
         </div>
       </div>
     </>
