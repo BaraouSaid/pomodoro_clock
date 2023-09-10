@@ -16,7 +16,7 @@ function App() {
             <div id="break-label">Break length</div>
             <div className="flex items-center gap-2">
               <FaArrowUp id="break-decrement" />
-              <h3 id="break-length">5</h3>
+              <p id="break-length">5</p>
               <FaArrowDown id="break-increment" />
             </div>
           </div>
@@ -24,12 +24,15 @@ function App() {
             <div id="session-label">Session Length</div>
             <div className="flex items-center gap-2">
               <FaArrowUp id="session-decrement" />
-              <h3 id="session-length">25</h3>
+              <p id="session-length">25</p>
               <FaArrowDown id="session-increment" />
             </div>
           </div>
         </div>
-        <div></div>
+        <div className="p-3 border-yellow-600 rounded-xl">
+          <h2 id="timer-label">Session</h2>
+          <p>25 : 00</p>
+        </div>
       </div>
     </>
   );
