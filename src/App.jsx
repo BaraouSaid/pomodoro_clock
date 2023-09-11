@@ -12,8 +12,15 @@ function increment(prev) {
   return prev + 1;
 }
 
-function decrement(prev) {
+function decrementBreakLength(prev) {
   if (prev == 0) {
+    return prev;
+  }
+  return prev - 1;
+}
+
+function decrementSessionLength(prev) {
+  if (prev == 1) {
     return prev;
   }
   return prev - 1;
@@ -21,6 +28,7 @@ function decrement(prev) {
 
 function App() {
   const [breakLength, setBreakLength] = useState(5);
+  const [sessionLength, setSessionLength] = useState(25);
   return (
     <>
       <div className="flex flex-col items-center justify-center w-full h-screen gap-10 text-3xl bg-slate-100">
@@ -40,7 +48,9 @@ function App() {
               <FaArrowDown
                 id="break-decrement"
                 className="text-yellow-600 hover:cursor-pointer"
-                onClick={() => setBreakLength(decrement(breakLength))}
+                onClick={() =>
+                  setBreakLength(decrementBreakLength(breakLength))
+                }
               />
             </div>
           </div>
@@ -50,6 +60,7 @@ function App() {
               <FaArrowUp
                 id="session-increment"
                 className="text-yellow-600 hover:cursor-pointer"
+                onClick={() => setSessionLength(increment(sessionLength))}
               />
               <p id="session-length">25</p>
               <FaArrowDown
