@@ -5,25 +5,42 @@ import { FaArrowUp, FaArrowDown } from 'react-icons/fa';
 import { BsFillPlayFill, BsPauseFill, BsArrowRepeat } from 'react-icons/bs';
 import './App.css';
 
+function increment(prev) {
+  if (prev == 60) {
+    return prev;
+  }
+  return prev + 1;
+}
+
+function decrement(prev) {
+  if (prev == 0) {
+    return prev;
+  }
+  return prev - 1;
+}
+
 function App() {
+  const [breakLength, setBreakLength] = useState(5);
   return (
     <>
-      <div className="flex flex-col items-center justify-center w-full h-screen gap-5 text-3xl  bg-slate-100">
+      <div className="flex flex-col items-center justify-center w-full h-screen gap-10 text-3xl bg-slate-100">
         <div>
-          <h1 className="text-5xl">25 + 5 Clock</h1>
+          <h1 className="mb-20 text-5xl">25 + 5 Clock</h1>
         </div>
         <div className="flex flex-row gap-5">
           <div className="flex flex-col items-center">
-            <div id="break-label">Break length</div>
+            <div id="break-label">Break Length</div>
             <div className="flex items-center gap-2">
               <FaArrowUp
-                id="break-decrement"
-                className="text-yellow-600 hover:cursor-pointer"
-              />
-              <p id="break-length">5</p>
-              <FaArrowDown
                 id="break-increment"
                 className="text-yellow-600 hover:cursor-pointer"
+                onClick={() => setBreakLength(increment(breakLength))}
+              />
+              <p id="break-length">{breakLength}</p>
+              <FaArrowDown
+                id="break-decrement"
+                className="text-yellow-600 hover:cursor-pointer"
+                onClick={() => setBreakLength(decrement(breakLength))}
               />
             </div>
           </div>
@@ -31,12 +48,12 @@ function App() {
             <div id="session-label">Session Length</div>
             <div className="flex items-center gap-2">
               <FaArrowUp
-                id="session-decrement"
+                id="session-increment"
                 className="text-yellow-600 hover:cursor-pointer"
               />
               <p id="session-length">25</p>
               <FaArrowDown
-                id="session-increment"
+                id="session-decrement"
                 className="text-yellow-600 hover:cursor-pointer"
               />
             </div>
