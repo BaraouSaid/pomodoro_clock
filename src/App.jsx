@@ -8,7 +8,7 @@ import './App.css';
 function App() {
   return (
     <>
-      <div className="container flex flex-col items-center justify-center h-screen gap-5 text-3xl bg-slate-100">
+      <div className="flex flex-col items-center justify-center w-full h-screen gap-5 text-3xl  bg-slate-100">
         <div>
           <h1 className="text-5xl">25 + 5 Clock</h1>
         </div>
