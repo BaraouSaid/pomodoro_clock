@@ -37,10 +37,6 @@ function App() {
   const [sessionLength, setSessionLength] = useState(25);
   const [isOff, setIsOff] = useState(true);
 
-  // function handleChangeIcons() {
-  //   setIsOn(!isOn);
-  // }
-
   return (
     <>
       <div className="flex flex-col items-center justify-center w-full h-screen gap-10 text-3xl font-bold bg-cyan-200">
