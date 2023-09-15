@@ -38,7 +38,7 @@ function App() {
         <div className="flex flex-row gap-5">
           <div className="flex flex-col items-center">
             <div id="break-label">Break Length</div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-3">
               <FaArrowUp
                 id="break-increment"
                 className="text-yellow-600 hover:cursor-pointer"
@@ -56,7 +56,7 @@ function App() {
           </div>
           <div className="flex flex-col items-center">
             <div id="session-label">Session Length</div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-3">
               <FaArrowUp
                 id="session-increment"
                 className="text-yellow-600 hover:cursor-pointer"
