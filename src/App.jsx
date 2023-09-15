@@ -35,6 +35,12 @@ function decrementSessionLength(prev) {
 function App() {
   const [breakLength, setBreakLength] = useState(5);
   const [sessionLength, setSessionLength] = useState(25);
+  const [isOn, setIsOn] = useState(true);
+
+  // function handleChangeIcons() {
+  //   setIsOn(!isOn);
+  // }
+
   return (
     <>
       <div className="flex flex-col items-center justify-center w-full h-screen gap-10 text-3xl bg-cyan-200">
@@ -95,9 +101,9 @@ function App() {
           <div
             id="start_stop"
             className="flex gap-0 p-1 border-4 border-amber-600 rounded-xl hover:cursor-pointer"
+            onClick={() => setIsOn(!isOn)}
           >
-            <BsFillPlayFill />
-            <BsPauseFill />
+            {isOn ? <BsFillPlayFill /> : <BsPauseFill />}
           </div>
 
           <BsArrowRepeat id="reset" className="hover:cursor-pointer" />
