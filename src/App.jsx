@@ -33,7 +33,7 @@ function App() {
     <>
       <div className="flex flex-col items-center justify-center w-full h-screen gap-10 text-3xl bg-slate-100">
         <div>
-          <h1 className="mb-20 text-5xl">25 + 5 Clock</h1>
+          <h1 className="mb-20 text-5xl">Pomodoro Clock</h1>
         </div>
         <div className="flex flex-row gap-5">
           <div className="flex flex-col items-center">
