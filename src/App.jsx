@@ -5,7 +5,7 @@ import { FaArrowUp, FaArrowDown } from 'react-icons/fa';
 import { BsFillPlayFill, BsPauseFill, BsArrowRepeat } from 'react-icons/bs';
 import './App.css';
 
-function increment(prev) {
+function incrementBreakLength(prev) {
   if (prev == 60) {
     return prev;
   }
@@ -13,12 +13,18 @@ function increment(prev) {
 }
 
 function decrementBreakLength(prev) {
-  if (prev == 0) {
+  if (prev == 1) {
     return prev;
   }
   return prev - 1;
 }
 
+function incrementSessionLength(prev) {
+  if (prev == 60) {
+    return prev;
+  }
+  return prev + 1;
+}
 function decrementSessionLength(prev) {
   if (prev == 1) {
     return prev;
@@ -31,18 +37,20 @@ function App() {
   const [sessionLength, setSessionLength] = useState(25);
   return (
     <>
-      <div className="flex flex-col items-center justify-center w-full h-screen gap-10 text-3xl bg-slate-100">
+      <div className="flex flex-col items-center justify-center w-full h-screen gap-10 text-3xl bg-cyan-200">
         <div>
           <h1 className="mb-20 text-5xl">Pomodoro Clock</h1>
         </div>
-        <div className="flex flex-row gap-5">
+        <div className="flex flex-row gap-24">
           <div className="flex flex-col items-center">
             <div id="break-label">Break Length</div>
             <div className="flex items-center gap-5">
               <FaArrowUp
                 id="break-increment"
                 className="text-yellow-600 hover:cursor-pointer"
-                onClick={() => setBreakLength(increment(breakLength))}
+                onClick={() =>
+                  setBreakLength(incrementBreakLength(breakLength))
+                }
               />
               <p id="break-length">{breakLength}</p>
               <FaArrowDown
@@ -60,12 +68,17 @@ function App() {
               <FaArrowUp
                 id="session-increment"
                 className="text-amber-600 hover:cursor-pointer"
-                onClick={() => setSessionLength(increment(sessionLength))}
+                onClick={() =>
+                  setSessionLength(incrementSessionLength(sessionLength))
+                }
               />
-              <p id="session-length">25</p>
+              <p id="session-length">{sessionLength}</p>
               <FaArrowDown
                 id="session-decrement"
                 className="text-amber-600 hover:cursor-pointer"
+                onClick={() =>
+                  setSessionLength(decrementSessionLength(sessionLength))
+                }
               />
             </div>
           </div>
@@ -75,7 +88,7 @@ function App() {
             Session
           </h2>
           <p id="time-left" className="text-8xl">
-            25:00
+            {sessionLength}:00
           </p>
         </div>
         <div className="flex items-center gap-3">
