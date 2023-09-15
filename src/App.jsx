@@ -43,9 +43,9 @@ function App() {
 
   return (
     <>
-      <div className="flex flex-col items-center justify-center w-full h-screen gap-10 text-3xl bg-cyan-200">
+      <div className="flex flex-col items-center justify-center w-full h-screen gap-10 text-3xl font-bold bg-cyan-200">
         <div>
-          <h1 className="mb-20 text-5xl">Pomodoro Clock</h1>
+          <h1 className="mb-20 text-5xl font-extrabold">Pomodoro Clock</h1>
         </div>
         <div className="flex flex-row gap-24">
           <div className="flex flex-col items-center">
