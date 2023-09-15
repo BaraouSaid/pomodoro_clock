@@ -59,18 +59,18 @@ function App() {
             <div className="flex items-center gap-5">
               <FaArrowUp
                 id="session-increment"
-                className="text-yellow-600 hover:cursor-pointer"
+                className="text-amber-600 hover:cursor-pointer"
                 onClick={() => setSessionLength(increment(sessionLength))}
               />
               <p id="session-length">25</p>
               <FaArrowDown
                 id="session-decrement"
-                className="text-yellow-600 hover:cursor-pointer"
+                className="text-amber-600 hover:cursor-pointer"
               />
             </div>
           </div>
         </div>
-        <div className="flex flex-col items-center p-3 border-4 border-yellow-600 rounded-xl">
+        <div className="flex flex-col items-center px-10 py-5 text-white border-4 bg-amber-600 rounded-xl">
           <h2 id="timer-label" className="text-3xl">
             Session
           </h2>
@@ -81,7 +81,7 @@ function App() {
         <div className="flex items-center gap-3">
           <div
             id="start_stop"
-            className="flex gap-0 p-1 border-4 border-yellow-600 rounded-xl hover:cursor-pointer"
+            className="flex gap-0 p-1 border-4 border-amber-600 rounded-xl hover:cursor-pointer"
           >
             <BsFillPlayFill />
             <BsPauseFill />
