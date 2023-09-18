@@ -25,6 +25,7 @@ function incrementMinutes(prev) {
   }
   return prev + 1;
 }
+
 function decrementMinutes(prev) {
   if (prev == 1) {
     return prev;
@@ -34,14 +35,29 @@ function decrementMinutes(prev) {
 
 function App() {
   const [breakLength, setBreakLength] = useState(5);
-  // const [sessionLength, setSessionLength] = useState(25);
+  const [sessionLength, setSessionLength] = useState(25);
   const [isOff, setIsOff] = useState(true);
   const [minutes, setMinutes] = useState(25);
-  const [seconds, setSeconds] = useState('00');
+  const [seconds, setSeconds] = useState(0);
   const [isCounting, setIsCounting] = useState(false);
+
+  useEffect(() => {
+    if (isCounting) {
+      const counter = setInterval(() => {
+        if (seconds === 0) {
+          setMinutes(minutes - 1);
+          setSeconds(59);
+        } else {
+          setSeconds(seconds - 1);
+        }
+      }, 1000);
+      return () => clearInterval(counter);
+    }
+  }, [isCounting, minutes, seconds]);
 
   function reset() {
     setBreakLength(5);
+    setSessionLength(25);
     setMinutes(25);
   }
 
@@ -78,13 +94,13 @@ function App() {
               <FaArrowUp
                 id="session-increment"
                 className="text-amber-600 hover:cursor-pointer"
-                onClick={() => setMinutes(incrementMinutes(minutes))}
+                onClick={() => setSessionLength(sessionLength + 1)}
               />
-              <p id="session-length">{minutes}</p>
+              <p id="session-length">{sessionLength}</p>
               <FaArrowDown
                 id="session-decrement"
                 className="text-amber-600 hover:cursor-pointer"
-                onClick={() => setMinutes(decrementMinutes(minutes))}
+                onClick={() => setSessionLength(sessionLength - 1)}
               />
             </div>
           </div>
@@ -101,9 +117,10 @@ function App() {
           <div
             id="start_stop"
             className="flex gap-0 p-1 border-4 border-amber-600 rounded-xl hover:cursor-pointer"
-            onClick={() => setIsOff(!isOff)}
+            onClick={() => setIsCounting(true)}
           >
-            {isOff ? <BsFillPlayFill /> : <BsPauseFill />}
+            {isCounting ? <BsPauseFill /> : <BsFillPlayFill />}
+            {/* <BsFillPlayFill /> */}
           </div>
 
           <BsArrowRepeat
