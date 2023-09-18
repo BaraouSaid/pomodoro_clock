@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import reactLogo from './assets/react.svg';
 import viteLogo from '/vite.svg';
 import { FaArrowUp, FaArrowDown } from 'react-icons/fa';
@@ -38,6 +38,7 @@ function App() {
   const [isOff, setIsOff] = useState(true);
   const [minutes, setMinutes] = useState(25);
   const [seconds, setSeconds] = useState('00');
+  const [isCounting, setIsCounting] = useState(false);
 
   function reset() {
     setBreakLength(5);
