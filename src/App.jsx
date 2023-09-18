@@ -34,14 +34,14 @@ function decrementMinutes(prev) {
 
 function App() {
   const [breakLength, setBreakLength] = useState(5);
-  const [sessionLength, setSessionLength] = useState(25);
+  // const [sessionLength, setSessionLength] = useState(25);
   const [isOff, setIsOff] = useState(true);
-  const [minutes, setMinutes] = useState('25');
+  const [minutes, setMinutes] = useState(25);
   const [seconds, setSeconds] = useState('00');
 
   function reset() {
     setBreakLength(5);
-    setSessionLength(25);
+    setMinutes(25);
   }
 
   return (
@@ -79,7 +79,7 @@ function App() {
                 className="text-amber-600 hover:cursor-pointer"
                 onClick={() => setMinutes(incrementMinutes(minutes))}
               />
-              <p id="session-length">{sessionLength}</p>
+              <p id="session-length">{minutes}</p>
               <FaArrowDown
                 id="session-decrement"
                 className="text-amber-600 hover:cursor-pointer"
