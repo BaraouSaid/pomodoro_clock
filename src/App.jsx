@@ -36,6 +36,8 @@ function App() {
   const [breakLength, setBreakLength] = useState(5);
   const [sessionLength, setSessionLength] = useState(25);
   const [isOff, setIsOff] = useState(true);
+  const [minutes, setMinutes] = useState('25');
+  const [seconds, setSeconds] = useState('00');
 
   function reset() {
     setBreakLength(5);
@@ -95,7 +97,7 @@ function App() {
             Session
           </h2>
           <p id="time-left" className="text-8xl">
-            {sessionLength}:00
+            {minutes}:{seconds}
           </p>
         </div>
         <div className="flex items-center gap-3">
