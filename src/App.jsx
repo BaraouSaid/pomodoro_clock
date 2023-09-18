@@ -19,13 +19,13 @@ function decrementBreakLength(prev) {
   return prev - 1;
 }
 
-function incrementSessionLength(prev) {
+function incrementMinutes(prev) {
   if (prev == 60) {
     return prev;
   }
   return prev + 1;
 }
-function decrementSessionLength(prev) {
+function decrementMinutes(prev) {
   if (prev == 1) {
     return prev;
   }
@@ -77,17 +77,13 @@ function App() {
               <FaArrowUp
                 id="session-increment"
                 className="text-amber-600 hover:cursor-pointer"
-                onClick={() =>
-                  setSessionLength(incrementSessionLength(sessionLength))
-                }
+                onClick={() => setMinutes(incrementMinutes(minutes))}
               />
               <p id="session-length">{sessionLength}</p>
               <FaArrowDown
                 id="session-decrement"
                 className="text-amber-600 hover:cursor-pointer"
-                onClick={() =>
-                  setSessionLength(decrementSessionLength(sessionLength))
-                }
+                onClick={() => setMinutes(decrementMinutes(minutes))}
               />
             </div>
           </div>
