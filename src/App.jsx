@@ -38,17 +38,19 @@ function App() {
   const [sessionLength, setSessionLength] = useState(25);
   const [isOff, setIsOff] = useState(true);
   const [minutes, setMinutes] = useState(25);
-  const [seconds, setSeconds] = useState(0);
+  const [seconds, setSeconds] = useState('00');
   const [isCounting, setIsCounting] = useState(false);
+
+  let parsedSeconds = parseInt(seconds);
 
   useEffect(() => {
     if (isCounting) {
       const counter = setInterval(() => {
-        if (seconds === 0) {
+        if (parsedSeconds === parseInt('00')) {
           setMinutes(minutes - 1);
           setSeconds(59);
         } else {
-          setSeconds(seconds - 1);
+          setSeconds(parsedSeconds - 1);
         }
       }, 1000);
       return () => clearInterval(counter);
@@ -105,7 +107,7 @@ function App() {
             </div>
           </div>
         </div>
-        <div className="flex flex-col items-center px-10 py-5 text-white border-4 bg-amber-600 rounded-xl">
+        <div className="flex flex-col items-center justify-center text-white border-8 rounded-full h-80 w-80 bg-amber-600 border-cyan-600">
           <h2 id="timer-label" className="text-3xl">
             Session
           </h2>
