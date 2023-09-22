@@ -55,7 +55,7 @@ function App() {
       }, 1000);
       return () => clearInterval(counter);
     }
-  }, [isCounting, minutes, seconds]);
+  }, []);
 
   function reset() {
     setBreakLength(5);
@@ -107,7 +107,7 @@ function App() {
             </div>
           </div>
         </div>
-        <div className="flex flex-col items-center justify-center text-white border-8 rounded-full h-80 w-80 bg-amber-600 border-cyan-600">
+        <div className="flex flex-col items-center justify-center border-8 rounded-full h-80 w-80 bg-amber-500 border-amber-800">
           <h2 id="timer-label" className="text-3xl">
             Session
           </h2>
