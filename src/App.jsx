@@ -55,7 +55,7 @@ function App() {
       }, 1000);
       return () => clearInterval(counter);
     }
-  }, []);
+  }, [isCounting, minutes, seconds]);
 
   function reset() {
     setBreakLength(5);
@@ -119,7 +119,13 @@ function App() {
           <div
             id="start_stop"
             className="flex gap-0 p-1 border-4 border-amber-600 rounded-xl hover:cursor-pointer"
-            onClick={() => setIsCounting(true)}
+            onClick={() => {
+              if (isCounting == false) {
+                setIsCounting(true);
+              } else {
+                setIsCounting(false);
+              }
+            }}
           >
             {isCounting ? <BsPauseFill /> : <BsFillPlayFill />}
             {/* <BsFillPlayFill /> */}
