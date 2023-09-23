@@ -19,31 +19,47 @@ function decrementBreakLength(prev) {
   return prev - 1;
 }
 
-function incrementMinutes(prev) {
-  if (prev == 60) {
-    return prev;
+function incrementSessionLength(sessionLength, minutes) {
+  if (minutes == 60) {
+    return {
+      ...sessionLength,
+      minutes: minutes,
+    };
   }
-  return prev + 1;
+  return {
+    ...sessionLength,
+    minutes: minutes + 1,
+  };
 }
 
-function decrementMinutes(prev) {
-  if (prev == 1) {
-    return prev;
+function decrementSessionLength(sessionLength, minutes) {
+  if (minutes == 1) {
+    return {
+      ...sessionLength,
+      minutes: minutes,
+    };
   }
-  return prev - 1;
+  return {
+    ...sessionLength,
+    minutes: minutes - 1,
+  };
 }
 
 function App() {
   const [breakLength, setBreakLength] = useState(5);
-  const [sessionLength, setSessionLength] = useState(25);
-  // const [sessionLength, setSessionLength] = useState({
-  //   minutes: 25,
-  //   seconds: '00'
-  // });
+  // const [sessionLength, setSessionLength] = useState(25);
+  const [sessionLength, setSessionLength] = useState({
+    minutes: 25,
+    seconds: '00',
+  });
+  const { minutes, seconds } = sessionLength;
   const [isOff, setIsOff] = useState(true);
-  const [minutes, setMinutes] = useState(25);
-  const [seconds, setSeconds] = useState('00');
+  // const [minutes, setMinutes] = useState(25);
+  // const [seconds, setSeconds] = useState('00');
   const [isCounting, setIsCounting] = useState(false);
+
+  // console.log(minutes);
+  // console.log(seconds);
 
   let parsedSeconds = parseInt(seconds);
 
@@ -51,10 +67,17 @@ function App() {
     if (isCounting) {
       const counter = setInterval(() => {
         if (parsedSeconds === parseInt('00')) {
-          setMinutes(minutes - 1);
-          setSeconds(59);
+          setSessionLength({
+            ...sessionLength,
+            minutes: minutes - 1,
+            seconds: 59,
+          });
         } else {
-          setSeconds(parsedSeconds - 1);
+          setSessionLength({
+            ...sessionLength,
+            minutes: minutes,
+            seconds: parsedSeconds - 1,
+          });
         }
       }, 1000);
       return () => clearInterval(counter);
@@ -63,8 +86,13 @@ function App() {
 
   function reset() {
     setBreakLength(5);
-    setSessionLength(25);
-    setMinutes(25);
+    // setSessionLength(25);
+    // minutes(25);
+    setSessionLength({
+      ...sessionLength,
+      minutes: 25,
+      seconds: '00',
+    });
   }
 
   return (
@@ -100,13 +128,21 @@ function App() {
               <FaArrowUp
                 id="session-increment"
                 className="text-amber-600 hover:cursor-pointer"
-                onClick={() => setSessionLength(incrementMinutes(minutes))}
+                onClick={() =>
+                  setSessionLength(
+                    incrementSessionLength(sessionLength, minutes)
+                  )
+                }
               />
-              <p id="session-length">{sessionLength}</p>
+              <p id="session-length">{minutes}</p>
               <FaArrowDown
                 id="session-decrement"
                 className="text-amber-600 hover:cursor-pointer"
-                onClick={() => setSessionLength(sessionLength - 1)}
+                onClick={() =>
+                  setSessionLength(
+                    decrementSessionLength(sessionLength, minutes)
+                  )
+                }
               />
             </div>
           </div>
