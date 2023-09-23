@@ -72,6 +72,13 @@ function App() {
             minutes: minutes - 1,
             seconds: 59,
           });
+          if (parsedSeconds < 10 && parsedSeconds !== parseInt('00')) {
+            setSessionLength({
+              ...sessionLength,
+              minutes: minutes,
+              seconds: `0${seconds}`,
+            });
+          }
         } else {
           setSessionLength({
             ...sessionLength,
