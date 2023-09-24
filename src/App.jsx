@@ -45,6 +45,7 @@ function App() {
   const [sessionMinutes, setSessionMinutes] = useState(25);
   const [sessionSeconds, setSessionSeconds] = useState('00');
   const [isCounting, setIsCounting] = useState(false);
+  const [sessionTitle, setSessionTitle] = useState('Session');
 
   let parsedSeconds = parseInt(sessionSeconds);
 
@@ -57,6 +58,9 @@ function App() {
         } else {
           setSessionMinutes(sessionMinutes);
           setSessionSeconds(sessionSeconds - 1);
+        }
+        if (sessionMinutes == 0 && sessionSeconds == 0) {
+          setSessionMinutes(breakLength);
         }
       }, 1000);
       return () => clearInterval(counter);
@@ -123,7 +127,7 @@ function App() {
         </div>
         <div className="flex flex-col items-center justify-center border-8 rounded-full h-80 w-80 bg-amber-500 border-amber-800">
           <h2 id="timer-label" className="text-3xl">
-            Session
+            {sessionTitle}
           </h2>
           <p id="time-left" className="text-8xl">
             {sessionMinutes}:{sessionSeconds}
