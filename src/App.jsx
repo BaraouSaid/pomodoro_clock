@@ -19,49 +19,34 @@ function decrementBreakLength(prev) {
   return prev - 1;
 }
 
-function incrementSessionLength(sessionLength, minutes) {
+function incrementSessionLength(minutes) {
   if (minutes == 60) {
-    return {
-      ...sessionLength,
-      minutes: minutes,
-    };
+    return minutes;
   }
-  return {
-    ...sessionLength,
-    minutes: minutes + 1,
-  };
+  return minutes + 1;
 }
 
-function decrementSessionLength(sessionLength, minutes) {
+function decrementSessionLength(minutes) {
   if (minutes == 1) {
-    return {
-      ...sessionLength,
-      minutes: minutes,
-    };
+    return minutes;
   }
-  return {
-    ...sessionLength,
-    minutes: minutes - 1,
-  };
+  return minutes - 1;
 }
 
 function App() {
   const [breakLength, setBreakLength] = useState(5);
-  // const [sessionLength, setSessionLength] = useState(25);
-  const [sessionLength, setSessionLength] = useState({
-    minutes: 25,
-    seconds: '00',
-  });
-  const { minutes, seconds } = sessionLength;
+  const [sessionLength, setSessionLength] = useState(25);
+  // const [sessionLength, setSessionLength] = useState({
+  //   minutes: 25,
+  //   seconds: '00',
+  // });
+  // const { minutes, seconds } = sessionLength;
   const [isOff, setIsOff] = useState(true);
-  // const [minutes, setMinutes] = useState(25);
-  // const [seconds, setSeconds] = useState('00');
+  const [sessionMinutes, setSessionMinutes] = useState(25);
+  const [sessionSeconds, setSessionSeconds] = useState('00');
   const [isCounting, setIsCounting] = useState(false);
 
-  // console.log(minutes);
-  // console.log(seconds);
-
-  let parsedSeconds = parseInt(seconds);
+  let parsedSeconds = parseInt(sessionSeconds);
 
   useEffect(() => {
     if (isCounting) {
@@ -72,13 +57,6 @@ function App() {
             minutes: minutes - 1,
             seconds: 59,
           });
-          if (parsedSeconds < 10 && parsedSeconds !== parseInt('00')) {
-            setSessionLength({
-              ...sessionLength,
-              minutes: minutes,
-              seconds: parseInt(`0${seconds}`),
-            });
-          }
         } else {
           setSessionLength({
             ...sessionLength,
@@ -100,7 +78,8 @@ function App() {
       minutes: 25,
       seconds: '00',
     });
-    clearInterval(counter);
+    // clearInterval(counter);
+    setIsCounting(false);
   }
 
   return (
