@@ -52,33 +52,22 @@ function App() {
     if (isCounting) {
       const counter = setInterval(() => {
         if (parsedSeconds === parseInt('00')) {
-          setSessionLength({
-            ...sessionLength,
-            minutes: minutes - 1,
-            seconds: 59,
-          });
+          setSessionMinutes(sessionMinutes - 1);
+          setSessionSeconds(parseInt('59'));
         } else {
-          setSessionLength({
-            ...sessionLength,
-            minutes: minutes,
-            seconds: parsedSeconds - 1,
-          });
+          setSessionMinutes(sessionMinutes);
+          setSessionSeconds(sessionSeconds - 1);
         }
       }, 1000);
       return () => clearInterval(counter);
     }
-  }, [isCounting, minutes, seconds]);
+  }, [isCounting, sessionMinutes, sessionSeconds]);
 
   function reset() {
     setBreakLength(5);
-    // setSessionLength(25);
-    // minutes(25);
-    setSessionLength({
-      ...sessionLength,
-      minutes: 25,
-      seconds: '00',
-    });
-    // clearInterval(counter);
+    setSessionLength(25);
+    setSessionMinutes(25);
+    setSessionSeconds(`00`);
     setIsCounting(false);
   }
 
@@ -116,19 +105,15 @@ function App() {
                 id="session-increment"
                 className="text-amber-600 hover:cursor-pointer"
                 onClick={() =>
-                  setSessionLength(
-                    incrementSessionLength(sessionLength, minutes)
-                  )
+                  setSessionLength(incrementSessionLength(sessionLength))
                 }
               />
-              <p id="session-length">{minutes}</p>
+              <p id="session-length">{sessionLength}</p>
               <FaArrowDown
                 id="session-decrement"
                 className="text-amber-600 hover:cursor-pointer"
                 onClick={() =>
-                  setSessionLength(
-                    decrementSessionLength(sessionLength, minutes)
-                  )
+                  setSessionLength(decrementSessionLength(sessionLength))
                 }
               />
             </div>
@@ -139,7 +124,7 @@ function App() {
             Session
           </h2>
           <p id="time-left" className="text-8xl">
-            {minutes}:{seconds}
+            {sessionMinutes}:{sessionSeconds}
           </p>
         </div>
         <div className="flex items-center gap-3">
