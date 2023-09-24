@@ -19,59 +19,44 @@ function decrementBreakLength(prev) {
   return prev - 1;
 }
 
-function incrementSessionLength(minutes) {
-  if (minutes == '60') {
-    return minutes;
+function incrementSessionLength(prev) {
+  if (prev == '60') {
+    return prev;
   }
-  return minutes + 1;
+  return parseInt(prev) + 1;
 }
 
 function decrementSessionLength(minutes) {
-  if (minutes == '1') {
+  if (minutes == '01') {
     return minutes;
   }
-  return minutes - 1;
+  if (minutes <= 10) {
+    return `0${parseInt(minutes) - 1}`;
+  }
+  return parseInt(minutes) - 1;
 }
 
 function App() {
-  // const minutes = 25;
-  // const seconds = 0;
-
-  // const paddedMinutes = minutes.padStart(2, '0');
-  // const paddedSeconds = seconds.padStart(2, '0');
-
-  // console.log(paddedSeconds);
-
   const [breakLength, setBreakLength] = useState('5');
   const [sessionLength, setSessionLength] = useState('25');
-  // const [sessionLength, setSessionLength] = useState({
-  //   minutes: 25,
-  //   seconds: '00',
-  // });
-  // const { minutes, seconds } = sessionLength;
 
-  // const [isOff, setIsOff] = useState(true);
-  const [sessionMinutes, setSessionMinutes] = useState('25'.padStart(2, '0'));
-  const [sessionSeconds, setSessionSeconds] = useState('0'.padStart(2, '0'));
+  const [sessionMinutes, setSessionMinutes] = useState('25');
+  const [sessionSeconds, setSessionSeconds] = useState('0');
   const [isCounting, setIsCounting] = useState(false);
   const [sessionTitle, setSessionTitle] = useState('Session');
   const [isOnBreak, setIsOnBreak] = useState(false);
 
-  // let parsedSeconds = parseInt(sessionSeconds);
-
-  // const paddedSeconds = sessionSeconds.padStart(2, '0');
-  // const paddedMinutes = sessionMinutes.padStart(2, '0');
-
   useEffect(() => {
     if (isCounting) {
       const counter = setInterval(() => {
-        if (sessionSeconds === '00') {
+        if (sessionSeconds == '00') {
           setSessionMinutes(sessionMinutes - 1);
           setSessionSeconds('59');
         } else {
           setSessionMinutes(sessionMinutes);
           setSessionSeconds(sessionSeconds - 1);
         }
+
         if (
           sessionMinutes == '00' &&
           sessionSeconds == '00' &&
@@ -158,7 +143,7 @@ function App() {
             {sessionTitle}
           </h2>
           <p id="time-left" className="text-8xl">
-            {sessionMinutes}:{sessionSeconds}
+            {sessionMinutes.padStart(2, '0')}:{sessionSeconds.padStart(2, '0')}
           </p>
         </div>
         <div className="flex items-center gap-3">
