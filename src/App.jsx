@@ -76,7 +76,7 @@ function App() {
             setSessionLength({
               ...sessionLength,
               minutes: minutes,
-              seconds: `0${seconds}`,
+              seconds: parseInt(`0${seconds}`),
             });
           }
         } else {
@@ -100,6 +100,7 @@ function App() {
       minutes: 25,
       seconds: '00',
     });
+    clearInterval(counter);
   }
 
   return (
@@ -175,7 +176,6 @@ function App() {
             }}
           >
             {isCounting ? <BsPauseFill /> : <BsFillPlayFill />}
-            {/* <BsFillPlayFill /> */}
           </div>
 
           <BsArrowRepeat
