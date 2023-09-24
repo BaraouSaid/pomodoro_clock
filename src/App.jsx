@@ -20,47 +20,75 @@ function decrementBreakLength(prev) {
 }
 
 function incrementSessionLength(minutes) {
-  if (minutes == 60) {
+  if (minutes == '60') {
     return minutes;
   }
   return minutes + 1;
 }
 
 function decrementSessionLength(minutes) {
-  if (minutes == 1) {
+  if (minutes == '1') {
     return minutes;
   }
   return minutes - 1;
 }
 
 function App() {
-  const [breakLength, setBreakLength] = useState(5);
-  const [sessionLength, setSessionLength] = useState(25);
+  // const minutes = 25;
+  // const seconds = 0;
+
+  // const paddedMinutes = minutes.padStart(2, '0');
+  // const paddedSeconds = seconds.padStart(2, '0');
+
+  // console.log(paddedSeconds);
+
+  const [breakLength, setBreakLength] = useState('5');
+  const [sessionLength, setSessionLength] = useState('25');
   // const [sessionLength, setSessionLength] = useState({
   //   minutes: 25,
   //   seconds: '00',
   // });
   // const { minutes, seconds } = sessionLength;
-  const [isOff, setIsOff] = useState(true);
-  const [sessionMinutes, setSessionMinutes] = useState(25);
-  const [sessionSeconds, setSessionSeconds] = useState('00');
+
+  // const [isOff, setIsOff] = useState(true);
+  const [sessionMinutes, setSessionMinutes] = useState('25'.padStart(2, '0'));
+  const [sessionSeconds, setSessionSeconds] = useState('0'.padStart(2, '0'));
   const [isCounting, setIsCounting] = useState(false);
   const [sessionTitle, setSessionTitle] = useState('Session');
+  const [isOnBreak, setIsOnBreak] = useState(false);
 
-  let parsedSeconds = parseInt(sessionSeconds);
+  // let parsedSeconds = parseInt(sessionSeconds);
+
+  // const paddedSeconds = sessionSeconds.padStart(2, '0');
+  // const paddedMinutes = sessionMinutes.padStart(2, '0');
 
   useEffect(() => {
     if (isCounting) {
       const counter = setInterval(() => {
-        if (parsedSeconds === parseInt('00')) {
+        if (sessionSeconds === '00') {
           setSessionMinutes(sessionMinutes - 1);
-          setSessionSeconds(parseInt('59'));
+          setSessionSeconds('59');
         } else {
           setSessionMinutes(sessionMinutes);
           setSessionSeconds(sessionSeconds - 1);
         }
-        if (sessionMinutes == 0 && sessionSeconds == 0) {
-          setSessionMinutes(breakLength);
+        if (
+          sessionMinutes == '00' &&
+          sessionSeconds == '00' &&
+          isOnBreak == false
+        ) {
+          setIsOnBreak(true);
+          setSessionMinutes(breakLength - 1);
+          setSessionTitle('Break');
+        }
+        if (
+          sessionMinutes == '00' &&
+          sessionSeconds == '00' &&
+          isOnBreak == true
+        ) {
+          setIsOnBreak(false);
+          setSessionTitle('Session');
+          setSessionMinutes(sessionLength);
         }
       }, 1000);
       return () => clearInterval(counter);
@@ -68,9 +96,9 @@ function App() {
   }, [isCounting, sessionMinutes, sessionSeconds]);
 
   function reset() {
-    setBreakLength(5);
-    setSessionLength(25);
-    setSessionMinutes(25);
+    setBreakLength('5');
+    setSessionLength('25');
+    setSessionMinutes('25');
     setSessionSeconds(`00`);
     setIsCounting(false);
   }
