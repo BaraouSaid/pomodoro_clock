@@ -104,17 +104,19 @@ function App() {
               <FaArrowUp
                 id="session-increment"
                 className="text-amber-600 hover:cursor-pointer"
-                onClick={() =>
-                  setSessionLength(incrementSessionLength(sessionLength))
-                }
+                onClick={() => {
+                  setSessionLength(incrementSessionLength(sessionLength));
+                  setSessionMinutes(incrementSessionLength(sessionMinutes));
+                }}
               />
               <p id="session-length">{sessionLength}</p>
               <FaArrowDown
                 id="session-decrement"
                 className="text-amber-600 hover:cursor-pointer"
-                onClick={() =>
-                  setSessionLength(decrementSessionLength(sessionLength))
-                }
+                onClick={() => {
+                  setSessionLength(decrementSessionLength(sessionLength));
+                  setSessionMinutes(decrementSessionLength(sessionMinutes));
+                }}
               />
             </div>
           </div>
