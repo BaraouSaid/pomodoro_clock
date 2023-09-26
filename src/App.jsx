@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
+// import reactLogo from './assets/react.svg';
+// import viteLogo from '/vite.svg';
 import { FaArrowUp, FaArrowDown } from 'react-icons/fa';
 import { BsFillPlayFill, BsPauseFill, BsArrowRepeat } from 'react-icons/bs';
 import './App.css';
@@ -20,28 +20,25 @@ function decrementBreakLength(prev) {
 }
 
 function incrementSessionLength(prev) {
-  if (prev == '60') {
-    return prev;
+  if (prev < 60) {
+    return prev + 1;
   }
-  return parseInt(prev) + 1;
+  return;
 }
 
 function decrementSessionLength(minutes) {
-  if (minutes == '01') {
-    return minutes;
+  if (minutes > 1) {
+    return minutes - 1;
   }
-  if (minutes <= 10) {
-    return `0${parseInt(minutes) - 1}`;
-  }
-  return parseInt(minutes) - 1;
+  return;
 }
 
 function App() {
-  const [breakLength, setBreakLength] = useState('5');
-  const [sessionLength, setSessionLength] = useState('25');
+  const [breakLength, setBreakLength] = useState(5);
+  const [sessionLength, setSessionLength] = useState(25);
 
-  const [sessionMinutes, setSessionMinutes] = useState('25');
-  const [sessionSeconds, setSessionSeconds] = useState('0');
+  const [sessionMinutes, setSessionMinutes] = useState(25);
+  const [sessionSeconds, setSessionSeconds] = useState(0);
   const [isCounting, setIsCounting] = useState(false);
   const [sessionTitle, setSessionTitle] = useState('Session');
   const [isOnBreak, setIsOnBreak] = useState(false);
@@ -49,28 +46,20 @@ function App() {
   useEffect(() => {
     if (isCounting) {
       const counter = setInterval(() => {
-        if (sessionSeconds == '00') {
+        if (sessionSeconds == 0) {
           setSessionMinutes(sessionMinutes - 1);
-          setSessionSeconds('59');
+          setSessionSeconds(59);
         } else {
           setSessionMinutes(sessionMinutes);
           setSessionSeconds(sessionSeconds - 1);
         }
 
-        if (
-          sessionMinutes == '00' &&
-          sessionSeconds == '00' &&
-          isOnBreak == false
-        ) {
+        if (sessionMinutes == 0 && sessionSeconds == 0 && isOnBreak == false) {
           setIsOnBreak(true);
           setSessionMinutes(breakLength - 1);
           setSessionTitle('Break');
         }
-        if (
-          sessionMinutes == '00' &&
-          sessionSeconds == '00' &&
-          isOnBreak == true
-        ) {
+        if (sessionMinutes == 0 && sessionSeconds == 0 && isOnBreak == true) {
           setIsOnBreak(false);
           setSessionTitle('Session');
           setSessionMinutes(sessionLength);
@@ -81,10 +70,10 @@ function App() {
   }, [isCounting, sessionMinutes, sessionSeconds]);
 
   function reset() {
-    setBreakLength('5');
-    setSessionLength('25');
-    setSessionMinutes('25');
-    setSessionSeconds(`00`);
+    setBreakLength(5);
+    setSessionLength(25);
+    setSessionMinutes(25);
+    setSessionSeconds(0);
     setIsCounting(false);
   }
 
@@ -143,7 +132,7 @@ function App() {
             {sessionTitle}
           </h2>
           <p id="time-left" className="text-8xl">
-            {sessionMinutes.padStart(2, '0')}:{sessionSeconds.padStart(2, '0')}
+            {sessionMinutes}:{sessionSeconds}
           </p>
         </div>
         <div className="flex items-center gap-3">
