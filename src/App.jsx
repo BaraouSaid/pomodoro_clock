@@ -26,9 +26,9 @@ function incrementSessionLength(prev) {
   return;
 }
 
-function decrementSessionLength(minutes) {
-  if (minutes > 1) {
-    return minutes - 1;
+function decrementSessionLength(prev) {
+  if (prev > 1) {
+    return prev - 1;
   }
   return;
 }
