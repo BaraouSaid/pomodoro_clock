@@ -30,8 +30,14 @@ function decrementSessionLength(prev) {
   if (prev > 1) {
     return prev - 1;
   }
-
   return prev;
+}
+
+function formatTime(time) {
+  if (time < 10) {
+    return `0${time}`;
+  }
+  return time;
 }
 
 function App() {
@@ -70,10 +76,10 @@ function App() {
   }, [isCounting, sessionMinutes, sessionSeconds]);
 
   function reset() {
-    setBreakLength(5);
-    setSessionLength(25);
-    setSessionMinutes(25);
-    setSessionSeconds(0);
+    setBreakLength(breakLength);
+    setSessionLength(sessionLength);
+    setSessionMinutes(sessionMinutes);
+    setSessionSeconds(sessionSeconds);
     setIsCounting(false);
   }
 
@@ -132,7 +138,7 @@ function App() {
             {sessionTitle}
           </h2>
           <p id="time-left" className="text-8xl">
-            {sessionMinutes}:{sessionSeconds}
+            {formatTime(sessionMinutes)}:{formatTime(sessionSeconds)}
           </p>
         </div>
         <div className="flex items-center gap-3">
