@@ -76,10 +76,10 @@ function App() {
   }, [isCounting, sessionMinutes, sessionSeconds]);
 
   function reset() {
-    setBreakLength(breakLength);
-    setSessionLength(sessionLength);
-    setSessionMinutes(sessionMinutes);
-    setSessionSeconds(sessionSeconds);
+    setBreakLength(5);
+    setSessionLength(25);
+    setSessionMinutes(25);
+    setSessionSeconds(0);
     setIsCounting(false);
   }
 
