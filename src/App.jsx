@@ -34,15 +34,13 @@ function decrementSessionLength(prev) {
 }
 
 function formatTime(minutes, seconds) {
-  if (minutes < 10 && seconds > 10) {
+  if (minutes < 10 && seconds >= 0) {
     return `0${minutes}:${seconds}`;
   }
-  if (minutes > 10 && seconds < 10) {
+  if (((minutes < 10 || minutes == 0) && seconds < 10) || seconds == 0) {
     return `${minutes}:0${seconds}`;
   }
-  if (minutes < 10 && seconds < 10) {
-    return `0${minutes}:0${seconds}`;
-  }
+
   return `${minutes}:${seconds}`;
 }
 
@@ -88,6 +86,7 @@ function App() {
           setSessionTitle('Session');
           setSessionMinutes(sessionLength);
         }
+        setTimeLeft(`${formatTime(sessionMinutes, sessionSeconds)}`);
       }, 1000);
       return () => clearInterval(counter);
     }
