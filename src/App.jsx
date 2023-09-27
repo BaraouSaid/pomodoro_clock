@@ -33,11 +33,17 @@ function decrementSessionLength(prev) {
   return prev;
 }
 
-function formatTime(time) {
-  if (time < 10) {
-    return `0${time}`;
+function formatTime(minutes, seconds) {
+  if (minutes < 10 && seconds > 10) {
+    return `0${minutes}:${seconds}`;
   }
-  return time;
+  if (minutes > 10 && seconds < 10) {
+    return `${minutes}:0${seconds}`;
+  }
+  if (minutes < 10 && seconds < 10) {
+    return `0${minutes}:0${seconds}`;
+  }
+  return `${minutes}:${seconds}`;
 }
 
 function App() {
@@ -45,6 +51,9 @@ function App() {
   const [sessionLength, setSessionLength] = useState(25);
   const [sessionMinutes, setSessionMinutes] = useState(25);
   const [sessionSeconds, setSessionSeconds] = useState(0);
+  const [timeLeft, setTimeLeft] = useState(
+    `${formatTime(sessionMinutes, sessionSeconds)}`
+  );
   const [isCounting, setIsCounting] = useState(false);
   const [sessionTitle, setSessionTitle] = useState('Session');
   const [isOnBreak, setIsOnBreak] = useState(false);
@@ -73,14 +82,15 @@ function App() {
       }, 1000);
       return () => clearInterval(counter);
     }
-  }, [isCounting, sessionMinutes, sessionSeconds]);
+  }, [isCounting, sessionMinutes, sessionSeconds, timeLeft]);
 
   function reset() {
+    setIsCounting(false);
     setBreakLength(5);
     setSessionLength(25);
-    setSessionMinutes(25);
-    setSessionSeconds(0);
-    setIsCounting(false);
+    // setSessionMinutes(25);
+    // setSessionSeconds(0);
+    setTimeLeft(`${formatTime(sessionMinutes, sessionSeconds)}`);
   }
 
   return (
@@ -138,7 +148,7 @@ function App() {
             {sessionTitle}
           </h2>
           <p id="time-left" className="text-8xl">
-            {formatTime(sessionMinutes)}:{formatTime(sessionSeconds)}
+            {timeLeft}
           </p>
         </div>
         <div className="flex items-center gap-3">
