@@ -58,6 +58,15 @@ function App() {
   const [sessionTitle, setSessionTitle] = useState('Session');
   const [isOnBreak, setIsOnBreak] = useState(false);
 
+  function reset() {
+    setIsCounting(false);
+    setBreakLength(5);
+    setSessionLength(25);
+    setSessionMinutes(25);
+    setSessionSeconds(0);
+    // setTimeLeft(formatTime(25, 0));
+  }
+
   useEffect(() => {
     if (isCounting) {
       const counter = setInterval(() => {
@@ -83,15 +92,6 @@ function App() {
       return () => clearInterval(counter);
     }
   }, [isCounting, sessionMinutes, sessionSeconds, timeLeft]);
-
-  function reset() {
-    setIsCounting(false);
-    setBreakLength(5);
-    setSessionLength(25);
-    // setSessionMinutes(25);
-    // setSessionSeconds(0);
-    setTimeLeft(`${formatTime(sessionMinutes, sessionSeconds)}`);
-  }
 
   return (
     <>
@@ -148,7 +148,7 @@ function App() {
             {sessionTitle}
           </h2>
           <p id="time-left" className="text-8xl">
-            {timeLeft}
+            {formatTime(sessionMinutes, sessionSeconds)}
           </p>
         </div>
         <div className="flex items-center gap-3">
