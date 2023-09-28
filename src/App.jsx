@@ -33,15 +33,18 @@ function decrementSessionLength(prev) {
   return prev;
 }
 
-function formatTime(minutes, seconds) {
+function formatTime(sessionMinutes, sessionSeconds) {
   // return `${minutes} < 10 ? "0" + ${minutes}:${minutes}:${seconds} < 10 ? "0" + ${seconds}`;
-  if (minutes < 10) {
-    return `0${minutes}:${seconds}`;
+  if (sessionMinutes < 10 && sessionSeconds < 10) {
+    return `0${sessionMinutes}:0${sessionSeconds}`;
   }
-  if (seconds < 10) {
-    return `${minutes}:0${seconds}`;
+  if (sessionMinutes < 10) {
+    return `0${sessionMinutes}:${sessionSeconds}`;
   }
-  return `${minutes}:${seconds}`;
+  if (sessionSeconds < 10) {
+    return `${sessionMinutes}:0${sessionSeconds}`;
+  }
+  return `${sessionMinutes}:${sessionSeconds}`;
 }
 
 function App() {
@@ -50,7 +53,7 @@ function App() {
   const [sessionMinutes, setSessionMinutes] = useState(25);
   const [sessionSeconds, setSessionSeconds] = useState(0);
   const [timeLeft, setTimeLeft] = useState(
-    `${formatTime(sessionMinutes, sessionSeconds)}`
+    `${sessionMinutes}:0${sessionSeconds}`
   );
   const [isCounting, setIsCounting] = useState(false);
   const [sessionTitle, setSessionTitle] = useState('Session');
@@ -147,7 +150,7 @@ function App() {
             {sessionTitle}
           </h2>
           <p id="time-left" className="text-8xl">
-            {timeLeft}
+            {formatTime(sessionMinutes, sessionSeconds)}
           </p>
         </div>
         <div className="flex items-center gap-3">
