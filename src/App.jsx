@@ -34,7 +34,14 @@ function decrementSessionLength(prev) {
 }
 
 function formatTime(minutes, seconds) {
-  return `${minutes} < 10 ? "0" + ${minutes}:${minutes}:${seconds} < 10 ? "0" + ${seconds}`;
+  // return `${minutes} < 10 ? "0" + ${minutes}:${minutes}:${seconds} < 10 ? "0" + ${seconds}`;
+  if (minutes < 10) {
+    return `0${minutes}:${seconds}`;
+  }
+  if (seconds < 10) {
+    return `${minutes}:0${seconds}`;
+  }
+  return `${minutes}:${seconds}`;
 }
 
 function App() {
