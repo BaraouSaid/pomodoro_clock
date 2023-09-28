@@ -34,14 +34,7 @@ function decrementSessionLength(prev) {
 }
 
 function formatTime(minutes, seconds) {
-  if (minutes < 10 && seconds >= 0) {
-    return `0${minutes}:${seconds}`;
-  }
-  if (((minutes < 10 || minutes == 0) && seconds < 10) || seconds == 0) {
-    return `${minutes}:0${seconds}`;
-  }
-
-  return `${minutes}:${seconds}`;
+  return `${minutes} < 10 ? "0" + ${minutes}:${minutes}:${seconds} < 10 ? "0" + ${seconds}`;
 }
 
 function App() {
@@ -147,7 +140,7 @@ function App() {
             {sessionTitle}
           </h2>
           <p id="time-left" className="text-8xl">
-            {formatTime(sessionMinutes, sessionSeconds)}
+            {timeLeft}
           </p>
         </div>
         <div className="flex items-center gap-3">
