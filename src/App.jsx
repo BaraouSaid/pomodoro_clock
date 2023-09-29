@@ -145,7 +145,7 @@ function App() {
             </div>
           </div>
         </div>
-        <div className="flex flex-col items-center justify-center border-8 rounded-full h-80 w-80 bg-amber-500 border-amber-800">
+        <div className="flex flex-col items-center justify-center p-40 border-8 rounded-full h-80 w-80 bg-amber-500 border-amber-800">
           <h2 id="timer-label" className="text-3xl">
             {sessionTitle}
           </h2>
