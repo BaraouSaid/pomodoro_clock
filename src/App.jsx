@@ -5,33 +5,33 @@ import { FaArrowUp, FaArrowDown } from 'react-icons/fa';
 import { BsFillPlayFill, BsPauseFill, BsArrowRepeat } from 'react-icons/bs';
 import './App.css';
 
-function incrementBreakLength(prev) {
-  if (prev < 60) {
-    return prev + 1;
-  }
-  return prev;
-}
+// function incrementBreakLength(prev) {
+//   if (prev < 60) {
+//     return prev + 1;
+//   }
+//   return prev;
+// }
 
-function decrementBreakLength(prev) {
-  if (prev > 1) {
-    return prev - 1;
-  }
-  return prev;
-}
+// function decrementBreakLength(prev) {
+//   if (prev > 1) {
+//     return prev - 1;
+//   }
+//   return prev;
+// }
 
-function incrementSessionLength(prev) {
-  if (prev < 60) {
-    return prev + 1;
-  }
-  return prev;
-}
+// function incrementSessionLength(prev) {
+//   if (prev < 60) {
+//     return prev + 1;
+//   }
+//   return prev;
+// }
 
-function decrementSessionLength(prev) {
-  if (prev > 1) {
-    return prev - 1;
-  }
-  return prev;
-}
+// function decrementSessionLength(prev) {
+//   if (prev > 1) {
+//     return prev - 1;
+//   }
+//   return prev;
+// }
 
 function App() {
   const [breakLength, setBreakLength] = useState(5);
@@ -42,6 +42,30 @@ function App() {
   const [isCounting, setIsCounting] = useState(false);
   const [sessionTitle, setSessionTitle] = useState('Session');
   const [isOnBreak, setIsOnBreak] = useState(false);
+
+  function incrementBreakLength() {
+    if (breakLength < 60) {
+      setBreakLength(breakLength + 1);
+    }
+  }
+
+  function decrementBreakLength() {
+    if (breakLength > 1) {
+      setBreakLength(breakLength - 1);
+    }
+  }
+
+  function incrementSessionLength() {
+    if (sessionLength < 60) {
+      setSessionLength(sessionLength + 1);
+    }
+  }
+
+  function decrementSessionLength() {
+    if (sessionLength > 1) {
+      setSessionLength(sessionLength - 1);
+    }
+  }
 
   function formatTime() {
     return null;
@@ -85,7 +109,7 @@ function App() {
           setSessionMinutes(breakLength - 1);
           setSessionTitle('Break');
         }
-        if (timeLeft == 0 && isOnBreak == false) {
+        if (sessionMinutes == 0 && sessionSeconds == 0 && isOnBreak == false) {
           setIsOnBreak(true);
         }
         if (sessionMinutes == 0 && sessionSeconds == 0 && isOnBreak == true) {
@@ -112,11 +136,15 @@ function App() {
               <FaArrowUp
                 id="break-increment"
                 className="text-yellow-600 hover:cursor-pointer"
+                onClick={incrementBreakLength}
+                disabled={isCounting}
               />
               <p id="break-length">{breakLength}</p>
               <FaArrowDown
                 id="break-decrement"
                 className="text-yellow-600 hover:cursor-pointer"
+                onClick={decrementBreakLength}
+                disabled={isCounting}
               />
             </div>
           </div>
@@ -126,11 +154,15 @@ function App() {
               <FaArrowUp
                 id="session-increment"
                 className="text-amber-600 hover:cursor-pointer"
+                onClick={incrementSessionLength}
+                disabled={isCounting}
               />
               <p id="session-length">{sessionLength}</p>
               <FaArrowDown
                 id="session-decrement"
                 className="text-amber-600 hover:cursor-pointer"
+                onClick={decrementSessionLength}
+                disabled={isCounting}
               />
             </div>
           </div>
