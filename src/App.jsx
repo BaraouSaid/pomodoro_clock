@@ -83,6 +83,17 @@ function App() {
   //   }
   // }, [isCounting, sessionMinutes, sessionSeconds, timeLeft]);
 
+  const counter = setInterval(() => {
+    if (timeLeft && isCounting) {
+      setTimeLeft(timeLeft - 1);
+    }
+  }, 1000);
+
+  function startCounter() {
+    clearInterval(counter);
+    setIsCounting(!isCounting);
+  }
+
   return (
     <>
       <div className="flex flex-col items-center justify-center w-full h-screen gap-10 text-3xl font-bold bg-cyan-200">
