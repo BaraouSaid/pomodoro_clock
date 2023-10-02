@@ -5,34 +5,6 @@ import { FaArrowUp, FaArrowDown } from 'react-icons/fa';
 import { BsFillPlayFill, BsPauseFill, BsArrowRepeat } from 'react-icons/bs';
 import './App.css';
 
-// function incrementBreakLength(prev) {
-//   if (prev < 60) {
-//     return prev + 1;
-//   }
-//   return prev;
-// }
-
-// function decrementBreakLength(prev) {
-//   if (prev > 1) {
-//     return prev - 1;
-//   }
-//   return prev;
-// }
-
-// function incrementSessionLength(prev) {
-//   if (prev < 60) {
-//     return prev + 1;
-//   }
-//   return prev;
-// }
-
-// function decrementSessionLength(prev) {
-//   if (prev > 1) {
-//     return prev - 1;
-//   }
-//   return prev;
-// }
-
 function App() {
   const [breakLength, setBreakLength] = useState(5);
   const [sessionLength, setSessionLength] = useState(25);
