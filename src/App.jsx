@@ -87,12 +87,26 @@ function App() {
     if (timeLeft && isCounting) {
       setTimeLeft(timeLeft - 1);
     }
+    return clearInterval(counter);
   }, 1000);
 
   function startCounter() {
-    clearInterval(counter);
     setIsCounting(!isCounting);
+    clearInterval(counter);
   }
+
+  function countdown() {
+    if (isCounting) {
+      counter;
+      // reset();
+    } else {
+      clearInterval(counter);
+    }
+  }
+
+  useEffect(() => {
+    countdown();
+  }, [isCounting, timeLeft, counter]);
 
   return (
     <>
@@ -104,12 +118,13 @@ function App() {
           <div className="flex flex-col items-center">
             <div id="break-label">Break Length</div>
             <div className="flex items-center gap-5">
-              <FaArrowUp
-                id="break-increment"
-                className="text-yellow-600 hover:cursor-pointer"
-                onClick={incrementBreakLength}
-                disabled={isCounting}
-              />
+              <button disabled={isCounting == true}>
+                <FaArrowUp
+                  id="break-increment"
+                  className="text-yellow-600 hover:cursor-pointer"
+                  onClick={incrementBreakLength}
+                />
+              </button>
               <p id="break-length">{breakLength}</p>
               <FaArrowDown
                 id="break-decrement"
@@ -150,13 +165,17 @@ function App() {
           <div
             id="start_stop"
             className="flex gap-0 p-1 border-4 border-amber-600 rounded-xl hover:cursor-pointer"
-            onClick={() => {
-              if (isCounting == false) {
-                setIsCounting(true);
-              } else {
-                setIsCounting(false);
-              }
-            }}
+            onClick={
+              //   () => {
+              //   if (isCounting == false) {
+              //     setIsCounting(true);
+              //   } else {
+              //     setIsCounting(false);
+              //   }
+              // }
+
+              startCounter
+            }
           >
             {isCounting ? <BsPauseFill /> : <BsFillPlayFill />}
           </div>
