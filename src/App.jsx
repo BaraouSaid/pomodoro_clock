@@ -63,13 +63,15 @@ function App() {
   }
 
   function resetTimer() {
-    if (!timeLeft && sessionTitle === 'Session') {
+    if (!isOnBreak && !timeLeft) {
       setTimeLeft(breakLength * 60);
+      setIsOnBreak(true);
       setSessionTitle('Break');
       sound.play();
     }
-    if (!timeLeft && sessionTitle === 'Break') {
+    if (!timeLeft && isOnBreak) {
       setTimeLeft(sessionLength * 60);
+      setIsOnBreak(false);
       setSessionTitle('Session');
       sound.pause();
       sound.currentTime = 0;
@@ -85,17 +87,18 @@ function App() {
     }
   }
 
-  useEffect(() => {
-    countdown();
-  }, [isCounting, timeLeft, counter]);
-
   function reset() {
     setBreakLength(5);
     setSessionLength(25);
     setIsCounting(false);
     setTimeLeft(1500);
+    setIsOnBreak(false);
     sound.pause();
   }
+
+  useEffect(() => {
+    countdown();
+  }, [isCounting, timeLeft, counter]);
 
   return (
     <>
