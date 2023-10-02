@@ -68,7 +68,18 @@ function App() {
   }
 
   function resetTimer() {
-    return null;
+    const sound = document.getElementById('ring');
+    if (!timeLeft && sessionTitle === 'Session') {
+      setTimeLeft(breakLength * 60);
+      setSessionTitle('Break');
+      audio.play();
+    }
+    if (!timeLeft && sessionTitle === 'Break') {
+      setTimeLeft(sessionLength * 60);
+      setSessionTitle('Session');
+      audio.pause();
+      audio.currentTime = 0;
+    }
   }
 
   function countdown() {
@@ -165,6 +176,11 @@ function App() {
           />
         </div>
       </div>
+      <audio
+        id="ring"
+        preload="auto"
+        src="https://raw.githubusercontent.com/freeCodeCamp/cdn/master/build/testable-projects-fcc/audio/BeepSound.wav"
+      />
     </>
   );
 }
