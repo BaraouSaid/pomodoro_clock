@@ -13,6 +13,8 @@ function App() {
   const [isOnBreak, setIsOnBreak] = useState(false);
   const [sessionTitle, setSessionTitle] = useState('Session');
 
+  const sound = document.getElementById('ring');
+
   function incrementBreakLength() {
     if (breakLength < 60) {
       setBreakLength(breakLength + 1);
@@ -48,13 +50,6 @@ function App() {
     return `${formattedMinutes}:${formattedSeconds}`;
   }
 
-  // const counter = setInterval(() => {
-  //   if (isCounting && timeLeft) {
-  //     setTimeLeft((timeLeft) => timeLeft - 1);
-  //   }
-  //   return clearInterval(counter);
-  // }, 1000);
-
   const counter = setInterval(() => {
     if (isCounting && timeLeft) {
       setTimeLeft(timeLeft - 1);
@@ -68,23 +63,23 @@ function App() {
   }
 
   function resetTimer() {
-    const sound = document.getElementById('ring');
     if (!timeLeft && sessionTitle === 'Session') {
       setTimeLeft(breakLength * 60);
       setSessionTitle('Break');
-      audio.play();
+      sound.play();
     }
     if (!timeLeft && sessionTitle === 'Break') {
       setTimeLeft(sessionLength * 60);
       setSessionTitle('Session');
-      audio.pause();
-      audio.currentTime = 0;
+      sound.pause();
+      sound.currentTime = 0;
     }
   }
 
   function countdown() {
     if (isCounting) {
       counter;
+      resetTimer();
     } else {
       return clearInterval(counter);
     }
@@ -97,10 +92,9 @@ function App() {
   function reset() {
     setBreakLength(5);
     setSessionLength(25);
-    if (isCounting) {
-      setIsCounting(false);
-    }
+    setIsCounting(false);
     setTimeLeft(1500);
+    sound.pause();
   }
 
   return (
