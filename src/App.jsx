@@ -37,11 +37,9 @@ function App() {
   const [breakLength, setBreakLength] = useState(5);
   const [sessionLength, setSessionLength] = useState(25);
   const [timeLeft, setTimeLeft] = useState(1500);
-  const [sessionMinutes, setSessionMinutes] = useState(null);
-  const [sessionSeconds, setSessionSeconds] = useState(null);
   const [isCounting, setIsCounting] = useState(false);
-  const [sessionTitle, setSessionTitle] = useState('Session');
   const [isOnBreak, setIsOnBreak] = useState(false);
+  const [sessionTitle, setSessionTitle] = useState('Session');
 
   function incrementBreakLength() {
     if (breakLength < 60) {
@@ -58,12 +56,14 @@ function App() {
   function incrementSessionLength() {
     if (sessionLength < 60) {
       setSessionLength(sessionLength + 1);
+      setTimeLeft(timeLeft + 60);
     }
   }
 
   function decrementSessionLength() {
     if (sessionLength > 1) {
       setSessionLength(sessionLength - 1);
+      setTimeLeft(timeLeft - 60);
     }
   }
 
@@ -79,53 +79,37 @@ function App() {
     setIsCounting(false);
     setBreakLength(5);
     setSessionLength(25);
-    setSessionMinutes(25);
-    setSessionSeconds(0);
   }
 
-  // function handleCount() {
-  //   clearTimeout(counter);
-  //   setIsCounting(!isCounting);
-  // }
-
-  // function countDown() {
+  // useEffect(() => {
   //   if (isCounting) {
-  //     counter;
-  //     reset();
-  //   } else {
-  //     clearTimeout(counter);
+  //     const counter = setInterval(() => {
+  //       if (sessionSeconds == 0) {
+  //         setSessionMinutes(sessionMinutes - 1);
+  //         setSessionSeconds(59);
+  //       } else {
+  //         setSessionMinutes(sessionMinutes);
+  //         setSessionSeconds(sessionSeconds - 1);
+  //       }
+
+  //       if (sessionMinutes == 0 && sessionSeconds == 0 && isOnBreak == false) {
+  //         setIsOnBreak(true);
+  //         setSessionMinutes(breakLength - 1);
+  //         setSessionTitle('Break');
+  //       }
+  //       if (sessionMinutes == 0 && sessionSeconds == 0 && isOnBreak == false) {
+  //         setIsOnBreak(true);
+  //       }
+  //       if (sessionMinutes == 0 && sessionSeconds == 0 && isOnBreak == true) {
+  //         setIsOnBreak(false);
+  //         setSessionTitle('Session');
+  //         setSessionMinutes(sessionLength);
+  //       }
+  //       setTimeLeft(`${formatTime(sessionMinutes, sessionSeconds)}`);
+  //     }, 1000);
+  //     return () => clearInterval(counter);
   //   }
-  // }
-
-  useEffect(() => {
-    if (isCounting) {
-      const counter = setInterval(() => {
-        if (sessionSeconds == 0) {
-          setSessionMinutes(sessionMinutes - 1);
-          setSessionSeconds(59);
-        } else {
-          setSessionMinutes(sessionMinutes);
-          setSessionSeconds(sessionSeconds - 1);
-        }
-
-        if (sessionMinutes == 0 && sessionSeconds == 0 && isOnBreak == false) {
-          setIsOnBreak(true);
-          setSessionMinutes(breakLength - 1);
-          setSessionTitle('Break');
-        }
-        if (sessionMinutes == 0 && sessionSeconds == 0 && isOnBreak == false) {
-          setIsOnBreak(true);
-        }
-        if (sessionMinutes == 0 && sessionSeconds == 0 && isOnBreak == true) {
-          setIsOnBreak(false);
-          setSessionTitle('Session');
-          setSessionMinutes(sessionLength);
-        }
-        setTimeLeft(`${formatTime(sessionMinutes, sessionSeconds)}`);
-      }, 1000);
-      return () => clearInterval(counter);
-    }
-  }, [isCounting, sessionMinutes, sessionSeconds, timeLeft]);
+  // }, [isCounting, sessionMinutes, sessionSeconds, timeLeft]);
 
   return (
     <>
@@ -176,7 +160,7 @@ function App() {
             {sessionTitle}
           </h2>
           <p id="time-left" className="text-8xl">
-            MM:SS
+            {formatTime()}
           </p>
         </div>
         <div className="flex items-center gap-3">
