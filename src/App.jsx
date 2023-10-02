@@ -41,72 +41,56 @@ function App() {
 
   function formatTime() {
     const minutes = Math.floor(timeLeft / 60);
-    const seconds = timeLeft - minutes * 60;
+    const seconds = timeLeft % 60;
+    //To change if a problem occur
     const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
     const formattedSeconds = seconds < 10 ? '0' + seconds : seconds;
     return `${formattedMinutes}:${formattedSeconds}`;
   }
 
-  function reset() {
-    setIsCounting(false);
-    setBreakLength(5);
-    setSessionLength(25);
-  }
-
-  // useEffect(() => {
-  //   if (isCounting) {
-  //     const counter = setInterval(() => {
-  //       if (sessionSeconds == 0) {
-  //         setSessionMinutes(sessionMinutes - 1);
-  //         setSessionSeconds(59);
-  //       } else {
-  //         setSessionMinutes(sessionMinutes);
-  //         setSessionSeconds(sessionSeconds - 1);
-  //       }
-
-  //       if (sessionMinutes == 0 && sessionSeconds == 0 && isOnBreak == false) {
-  //         setIsOnBreak(true);
-  //         setSessionMinutes(breakLength - 1);
-  //         setSessionTitle('Break');
-  //       }
-  //       if (sessionMinutes == 0 && sessionSeconds == 0 && isOnBreak == false) {
-  //         setIsOnBreak(true);
-  //       }
-  //       if (sessionMinutes == 0 && sessionSeconds == 0 && isOnBreak == true) {
-  //         setIsOnBreak(false);
-  //         setSessionTitle('Session');
-  //         setSessionMinutes(sessionLength);
-  //       }
-  //       setTimeLeft(`${formatTime(sessionMinutes, sessionSeconds)}`);
-  //     }, 1000);
-  //     return () => clearInterval(counter);
+  // const counter = setInterval(() => {
+  //   if (isCounting && timeLeft) {
+  //     setTimeLeft((timeLeft) => timeLeft - 1);
   //   }
-  // }, [isCounting, sessionMinutes, sessionSeconds, timeLeft]);
+  //   return clearInterval(counter);
+  // }, 1000);
 
   const counter = setInterval(() => {
-    if (timeLeft && isCounting) {
+    if (isCounting && timeLeft) {
       setTimeLeft(timeLeft - 1);
     }
     return clearInterval(counter);
   }, 1000);
 
-  function startCounter() {
-    setIsCounting(!isCounting);
+  function toggleCounter() {
     clearInterval(counter);
+    setIsCounting(!isCounting);
+  }
+
+  function resetTimer() {
+    return null;
   }
 
   function countdown() {
     if (isCounting) {
       counter;
-      // reset();
     } else {
-      clearInterval(counter);
+      return clearInterval(counter);
     }
   }
 
   useEffect(() => {
     countdown();
   }, [isCounting, timeLeft, counter]);
+
+  function reset() {
+    setBreakLength(5);
+    setSessionLength(25);
+    if (isCounting) {
+      setIsCounting(false);
+    }
+    setTimeLeft(1500);
+  }
 
   return (
     <>
@@ -169,17 +153,7 @@ function App() {
           <div
             id="start_stop"
             className="flex gap-0 p-1 border-4 border-amber-600 rounded-xl hover:cursor-pointer"
-            onClick={
-              //   () => {
-              //   if (isCounting == false) {
-              //     setIsCounting(true);
-              //   } else {
-              //     setIsCounting(false);
-              //   }
-              // }
-
-              startCounter
-            }
+            onClick={toggleCounter}
           >
             {isCounting ? <BsPauseFill /> : <BsFillPlayFill />}
           </div>
