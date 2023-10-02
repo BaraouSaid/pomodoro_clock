@@ -118,7 +118,7 @@ function App() {
           <div className="flex flex-col items-center">
             <div id="break-label">Break Length</div>
             <div className="flex items-center gap-5">
-              <button disabled={isCounting == true}>
+              <button disabled={isCounting}>
                 <FaArrowUp
                   id="break-increment"
                   className="text-yellow-600 hover:cursor-pointer"
@@ -126,30 +126,34 @@ function App() {
                 />
               </button>
               <p id="break-length">{breakLength}</p>
-              <FaArrowDown
-                id="break-decrement"
-                className="text-yellow-600 hover:cursor-pointer"
-                onClick={decrementBreakLength}
-                disabled={isCounting}
-              />
+              <button disabled={isCounting}>
+                <FaArrowDown
+                  id="break-decrement"
+                  className="text-yellow-600 hover:cursor-pointer"
+                  onClick={decrementBreakLength}
+                />
+              </button>
             </div>
           </div>
           <div className="flex flex-col items-center">
             <div id="session-label">Session Length</div>
             <div className="flex items-center gap-5">
-              <FaArrowUp
-                id="session-increment"
-                className="text-amber-600 hover:cursor-pointer"
-                onClick={incrementSessionLength}
-                disabled={isCounting}
-              />
+              <button disabled={isCounting}>
+                <FaArrowUp
+                  id="session-increment"
+                  className="text-amber-600 hover:cursor-pointer"
+                  onClick={incrementSessionLength}
+                />
+              </button>
               <p id="session-length">{sessionLength}</p>
-              <FaArrowDown
-                id="session-decrement"
-                className="text-amber-600 hover:cursor-pointer"
-                onClick={decrementSessionLength}
-                disabled={isCounting}
-              />
+              <button disabled={isCounting}>
+                <FaArrowDown
+                  id="session-decrement"
+                  className="text-amber-600 hover:cursor-pointer"
+                  onClick={decrementSessionLength}
+                  disabled={isCounting}
+                />
+              </button>
             </div>
           </div>
         </div>
