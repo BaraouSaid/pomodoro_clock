@@ -50,7 +50,7 @@ function App() {
 
   function formatTime(minutes, seconds) {
     minutes = Math.floor(timeLeft / 60);
-    seconds = timeLeft % 60;
+    seconds = timeLeft - minutes * 60;
     //To change if a problem occur
     const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
     const formattedSeconds = seconds < 10 ? '0' + seconds : seconds;
@@ -63,15 +63,15 @@ function App() {
   }
 
   function resetTimer() {
-    if (!timeLeft && !isOnBreak) {
-      setTimeLeft(breakLength * 60);
+    if (timeLeft === 0 && !isOnBreak) {
       setIsOnBreak(true);
+      setTimeLeft(breakLength * 60);
       setSessionTitle('Break');
       sound.play();
     }
     if (!timeLeft && isOnBreak) {
-      setTimeLeft(sessionLength * 60);
       setIsOnBreak(false);
+      setTimeLeft(sessionLength * 60);
       setSessionTitle('Session');
       sound.pause();
       sound.currentTime = 0;
