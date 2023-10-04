@@ -153,14 +153,13 @@ function App() {
             </div>
           </div>
         </div>
-        <div
-          id="time-left"
-          className="flex flex-col items-center justify-center p-40 border-8 rounded-full h-80 w-80 bg-amber-500 border-amber-800"
-        >
+        <div className="flex flex-col items-center justify-center p-40 border-8 rounded-full h-80 w-80 bg-amber-500 border-amber-800">
           <h2 id="timer-label" className="text-3xl">
             {sessionTitle}
           </h2>
-          <p className="text-8xl">{formatTime()}</p>
+          <p id="time-left" className="text-8xl">
+            {formatTime()}
+          </p>
         </div>
         <div className="flex items-center gap-3">
           <div
@@ -170,12 +169,8 @@ function App() {
           >
             {isCounting ? <BsPauseFill /> : <BsFillPlayFill />}
           </div>
-          <button id="reset">
-            <BsArrowRepeat
-              id="reset"
-              className="hover:cursor-pointer"
-              onClick={reset}
-            />
+          <button id="reset" onClick={reset}>
+            <BsArrowRepeat className="hover:cursor-pointer" />
           </button>
         </div>
       </div>
