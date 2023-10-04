@@ -13,7 +13,7 @@ function App() {
   const [isOnBreak, setIsOnBreak] = useState(false);
   const [sessionTitle, setSessionTitle] = useState('Session');
 
-  const sound = document.getElementById('ring');
+  const sound = document.getElementById('beep');
 
   function incrementBreakLength() {
     if (breakLength < 60) {
@@ -162,12 +162,10 @@ function App() {
           </p>
         </div>
         <div className="flex items-center gap-3">
-          <div
-            id="start_stop"
-            className="flex gap-0 p-1 border-4 border-amber-600 rounded-xl hover:cursor-pointer"
-            onClick={toggleCounter}
-          >
-            {isCounting ? <BsPauseFill /> : <BsFillPlayFill />}
+          <div className="flex gap-0 p-1 border-4 border-amber-600 rounded-xl hover:cursor-pointer">
+            <button id="start_stop" onClick={toggleCounter}>
+              {isCounting ? <BsPauseFill /> : <BsFillPlayFill />}
+            </button>
           </div>
           <button id="reset" onClick={reset}>
             <BsArrowRepeat className="hover:cursor-pointer" />
@@ -175,7 +173,7 @@ function App() {
         </div>
       </div>
       <audio
-        id="ring"
+        id="beep"
         preload="auto"
         src="https://raw.githubusercontent.com/freeCodeCamp/cdn/master/build/testable-projects-fcc/audio/BeepSound.wav"
       />
