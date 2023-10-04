@@ -19,12 +19,14 @@ function App() {
     if (breakLength < 60) {
       setBreakLength(breakLength + 1);
     }
+    return;
   }
 
   function decrementBreakLength() {
     if (breakLength > 1) {
       setBreakLength(breakLength - 1);
     }
+    return;
   }
 
   function incrementSessionLength() {
@@ -32,6 +34,7 @@ function App() {
       setSessionLength(sessionLength + 1);
       setTimeLeft(timeLeft + 60);
     }
+    return;
   }
 
   function decrementSessionLength() {
@@ -39,6 +42,7 @@ function App() {
       setSessionLength(sessionLength - 1);
       setTimeLeft(timeLeft - 60);
     }
+    return;
   }
 
   function countdown() {
@@ -111,48 +115,52 @@ function App() {
           <div className="flex flex-col items-center">
             <div id="break-label">Break Length</div>
             <div className="flex items-center gap-5">
-              <button id="break-increment" disabled={isCounting}>
-                <FaArrowUp
-                  className="text-yellow-600 hover:cursor-pointer"
-                  onClick={incrementBreakLength}
-                />
+              <button
+                id="break-increment"
+                onClick={incrementBreakLength}
+                disabled={isCounting}
+              >
+                <FaArrowUp className="text-yellow-600 hover:cursor-pointer" />
               </button>
               <p id="break-length">{breakLength}</p>
-              <button id="break-decrement" disabled={isCounting}>
-                <FaArrowDown
-                  className="text-yellow-600 hover:cursor-pointer"
-                  onClick={decrementBreakLength}
-                />
+              <button
+                id="break-decrement"
+                onClick={decrementBreakLength}
+                disabled={isCounting}
+              >
+                <FaArrowDown className="text-yellow-600 hover:cursor-pointer" />
               </button>
             </div>
           </div>
           <div className="flex flex-col items-center">
             <div id="session-label">Session Length</div>
             <div className="flex items-center gap-5">
-              <button id="session-increment" disabled={isCounting}>
-                <FaArrowUp
-                  className="text-amber-600 hover:cursor-pointer"
-                  onClick={incrementSessionLength}
-                />
+              <button
+                id="session-increment"
+                onClick={incrementSessionLength}
+                disabled={isCounting}
+              >
+                <FaArrowUp className="text-amber-600 hover:cursor-pointer" />
               </button>
               <p id="session-length">{sessionLength}</p>
-              <button id="session-decrement" disabled={isCounting}>
-                <FaArrowDown
-                  className="text-amber-600 hover:cursor-pointer"
-                  onClick={decrementSessionLength}
-                  disabled={isCounting}
-                />
+              <button
+                id="session-decrement"
+                onClick={decrementSessionLength}
+                disabled={isCounting}
+              >
+                <FaArrowDown className="text-amber-600 hover:cursor-pointer" />
               </button>
             </div>
           </div>
         </div>
-        <div className="flex flex-col items-center justify-center p-40 border-8 rounded-full h-80 w-80 bg-amber-500 border-amber-800">
+        <div
+          id="time-left"
+          className="flex flex-col items-center justify-center p-40 border-8 rounded-full h-80 w-80 bg-amber-500 border-amber-800"
+        >
           <h2 id="timer-label" className="text-3xl">
             {sessionTitle}
           </h2>
-          <p id="time-left" className="text-8xl">
-            {formatTime()}
-          </p>
+          <p className="text-8xl">{formatTime()}</p>
         </div>
         <div className="flex items-center gap-3">
           <div
