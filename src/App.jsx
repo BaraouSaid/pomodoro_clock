@@ -41,9 +41,9 @@ function App() {
     }
   }
 
-  function formatTime() {
-    const minutes = Math.floor(timeLeft / 60);
-    const seconds = timeLeft % 60;
+  function formatTime(minutes, seconds) {
+    minutes = Math.floor(timeLeft / 60);
+    seconds = timeLeft % 60;
     //To change if a problem occur
     const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
     const formattedSeconds = seconds < 10 ? '0' + seconds : seconds;
@@ -63,7 +63,7 @@ function App() {
   }
 
   function resetTimer() {
-    if (!isOnBreak && !timeLeft) {
+    if (!timeLeft && !isOnBreak) {
       setTimeLeft(breakLength * 60);
       setIsOnBreak(true);
       setSessionTitle('Break');
@@ -87,18 +87,18 @@ function App() {
     }
   }
 
-  function reset() {
-    setBreakLength(5);
-    setSessionLength(25);
-    setIsCounting(false);
-    setTimeLeft(1500);
-    setIsOnBreak(false);
-    sound.pause();
-  }
-
   useEffect(() => {
     countdown();
   }, [isCounting, timeLeft, counter]);
+
+  function reset() {
+    setIsCounting(false);
+    setIsOnBreak(false);
+    setBreakLength(5);
+    setSessionLength(25);
+    setTimeLeft(1500);
+    sound.pause();
+  }
 
   return (
     <>
