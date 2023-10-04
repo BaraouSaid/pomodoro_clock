@@ -15,6 +15,13 @@ function App() {
 
   const sound = document.getElementById('ring');
 
+  const counter = setInterval(() => {
+    if (isCounting && timeLeft) {
+      setTimeLeft(timeLeft - 1);
+    }
+    return clearInterval(counter);
+  }, 1000);
+
   function incrementBreakLength() {
     if (breakLength < 60) {
       setBreakLength(breakLength + 1);
@@ -50,13 +57,6 @@ function App() {
     return `${formattedMinutes}:${formattedSeconds}`;
   }
 
-  const counter = setInterval(() => {
-    if (isCounting && timeLeft) {
-      setTimeLeft(timeLeft - 1);
-    }
-    return clearInterval(counter);
-  }, 1000);
-
   function toggleCounter() {
     clearInterval(counter);
     setIsCounting(!isCounting);
@@ -87,18 +87,21 @@ function App() {
     }
   }
 
-  useEffect(() => {
-    countdown();
-  }, [isCounting, timeLeft, counter]);
-
   function reset() {
+    clearInterval(counter);
     setIsCounting(false);
-    setIsOnBreak(false);
+    setIsCounting(false);
     setBreakLength(5);
     setSessionLength(25);
     setTimeLeft(1500);
+    setSessionTitle('Session');
     sound.pause();
+    sound.currentTime = 0;
   }
+
+  useEffect(() => {
+    countdown();
+  }, [isCounting, timeLeft, counter]);
 
   return (
     <>
