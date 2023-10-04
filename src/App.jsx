@@ -15,13 +15,6 @@ function App() {
 
   const sound = document.getElementById('ring');
 
-  const counter = setInterval(() => {
-    if (isCounting && timeLeft) {
-      setTimeLeft(timeLeft - 1);
-    }
-    return clearInterval(counter);
-  }, 1000);
-
   function incrementBreakLength() {
     if (breakLength < 60) {
       setBreakLength(breakLength + 1);
@@ -48,6 +41,25 @@ function App() {
     }
   }
 
+  function countdown() {
+    if (isCounting) {
+      const counter = setInterval(() => {
+        if (isCounting && timeLeft > 0) {
+          setTimeLeft(timeLeft - 1);
+        }
+        return clearInterval(counter);
+      }, 1000);
+      resetTimer();
+    }
+    //  else {
+    //   return clearInterval(counter);
+    // }
+  }
+
+  useEffect(() => {
+    countdown();
+  }, [isCounting, timeLeft]);
+
   function formatTime(minutes, seconds) {
     minutes = Math.floor(timeLeft / 60);
     seconds = timeLeft - minutes * 60;
@@ -58,7 +70,7 @@ function App() {
   }
 
   function toggleCounter() {
-    clearInterval(counter);
+    // clearInterval(counter);
     setIsCounting(!isCounting);
   }
 
@@ -69,7 +81,7 @@ function App() {
       setSessionTitle('Break');
       sound.play();
     }
-    if (!timeLeft && isOnBreak) {
+    if (timeLeft === 0 && isOnBreak) {
       setIsOnBreak(false);
       setTimeLeft(sessionLength * 60);
       setSessionTitle('Session');
@@ -78,18 +90,8 @@ function App() {
     }
   }
 
-  function countdown() {
-    if (isCounting) {
-      counter;
-      resetTimer();
-    } else {
-      return clearInterval(counter);
-    }
-  }
-
   function reset() {
-    clearInterval(counter);
-    setIsCounting(false);
+    // clearInterval(counter);
     setIsCounting(false);
     setBreakLength(5);
     setSessionLength(25);
@@ -98,10 +100,6 @@ function App() {
     sound.pause();
     sound.currentTime = 0;
   }
-
-  useEffect(() => {
-    countdown();
-  }, [isCounting, timeLeft, counter]);
 
   return (
     <>
@@ -113,17 +111,15 @@ function App() {
           <div className="flex flex-col items-center">
             <div id="break-label">Break Length</div>
             <div className="flex items-center gap-5">
-              <button disabled={isCounting}>
+              <button id="break-increment" disabled={isCounting}>
                 <FaArrowUp
-                  id="break-increment"
                   className="text-yellow-600 hover:cursor-pointer"
                   onClick={incrementBreakLength}
                 />
               </button>
               <p id="break-length">{breakLength}</p>
-              <button disabled={isCounting}>
+              <button id="break-decrement" disabled={isCounting}>
                 <FaArrowDown
-                  id="break-decrement"
                   className="text-yellow-600 hover:cursor-pointer"
                   onClick={decrementBreakLength}
                 />
@@ -133,17 +129,15 @@ function App() {
           <div className="flex flex-col items-center">
             <div id="session-label">Session Length</div>
             <div className="flex items-center gap-5">
-              <button disabled={isCounting}>
+              <button id="session-increment" disabled={isCounting}>
                 <FaArrowUp
-                  id="session-increment"
                   className="text-amber-600 hover:cursor-pointer"
                   onClick={incrementSessionLength}
                 />
               </button>
               <p id="session-length">{sessionLength}</p>
-              <button disabled={isCounting}>
+              <button id="session-decrement" disabled={isCounting}>
                 <FaArrowDown
-                  id="session-decrement"
                   className="text-amber-600 hover:cursor-pointer"
                   onClick={decrementSessionLength}
                   disabled={isCounting}
@@ -168,12 +162,13 @@ function App() {
           >
             {isCounting ? <BsPauseFill /> : <BsFillPlayFill />}
           </div>
-
-          <BsArrowRepeat
-            id="reset"
-            className="hover:cursor-pointer"
-            onClick={reset}
-          />
+          <button id="reset">
+            <BsArrowRepeat
+              id="reset"
+              className="hover:cursor-pointer"
+              onClick={reset}
+            />
+          </button>
         </div>
       </div>
       <audio
