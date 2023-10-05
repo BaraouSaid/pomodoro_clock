@@ -84,7 +84,7 @@ function App() {
       setTimeLeft(sessionLength * 60);
       setSessionTitle('Session');
       sound.pause();
-      sound.seek(0);
+      sound.currentTime = 0;
     }
   }
 
@@ -108,7 +108,7 @@ function App() {
     setSessionLength(25);
     setSessionTitle('Session');
     sound.pause();
-    sound.currentTime = sound.seek(0);
+    sound.currentTime = 0;
     console.log('reset');
     console.log(`break length is ${breakLength}
     Session Length is ${sessionLength} time left is ${timeLeft}`);
