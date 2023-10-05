@@ -45,11 +45,11 @@ function App() {
     return;
   }
 
-  const counter = setTimeout(() => {
+  const counter = setInterval(() => {
     if (isCounting && timeLeft > 0) {
       setTimeLeft(timeLeft - 1);
     }
-    return clearTimeout(counter);
+    return clearInterval(counter);
   }, 1000);
 
   function formatTime() {
@@ -65,7 +65,7 @@ function App() {
   }
 
   function toggleCounter() {
-    clearTimeout(counter);
+    clearInterval(counter);
     setIsCounting(!isCounting);
   }
 
@@ -76,7 +76,7 @@ function App() {
       setSessionTitle('Break');
       sound.play();
     }
-    if (!timeLeft == 0 && isOnBreak) {
+    if (!timeLeft && isOnBreak) {
       setIsOnBreak(false);
       setTimeLeft(sessionLength * 60);
       setSessionTitle('Session');
@@ -90,25 +90,19 @@ function App() {
       counter;
       resetTimer();
     } else {
-      clearTimeout(counter);
+      clearInterval(counter);
     }
   }
 
-  function pauseSound() {
-    sound.pause();
-    sound.currentTime = 0;
-  }
-
   function reset() {
-    clearTimeout(counter);
+    clearInterval(counter);
     setIsCounting(false);
     setTimeLeft(1500);
     setBreakLength(5);
     setSessionLength(25);
     setSessionTitle('Session');
-    // sound.pause();
-    // sound.currentTime = 0;
-    // pauseSound();
+    sound.pause();
+    sound.currentTime = 0;
   }
 
   useEffect(() => {
@@ -177,7 +171,11 @@ function App() {
               {isCounting ? <BsPauseFill /> : <BsFillPlayFill />}
             </button>
           </div>
-          <button id="reset" onClick={reset}>
+          <button
+            id="reset"
+            onClick={reset}
+            disabled={!isCounting && timeLeft == 1500}
+          >
             <BsArrowRepeat className="hover:cursor-pointer" />
           </button>
         </div>
