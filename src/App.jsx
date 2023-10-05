@@ -45,6 +45,13 @@ function App() {
     return;
   }
 
+  const counter = setTimeout(() => {
+    if (isCounting && timeLeft > 0) {
+      setTimeLeft(timeLeft - 1);
+    }
+    return clearTimeout(counter);
+  }, 1000);
+
   function formatTime() {
     const minutes = Math.floor(timeLeft / 60);
     // seconds = timeLeft - minutes * 60;
@@ -58,24 +65,18 @@ function App() {
   }
 
   function toggleCounter() {
-    // clearInterval(counter);
-    // setIsCounting(!isCounting);
-    if (isCounting) {
-      setIsCounting(false);
-    }
-    if (!isCounting) {
-      setIsCounting(true);
-    }
+    clearTimeout(counter);
+    setIsCounting(!isCounting);
   }
 
   function resetTimer() {
-    if (timeLeft == 0 && !isOnBreak) {
+    if (!timeLeft && !isOnBreak) {
       setIsOnBreak(true);
       setTimeLeft(breakLength * 60);
       setSessionTitle('Break');
       sound.play();
     }
-    if (timeLeft == 0 && isOnBreak) {
+    if (!timeLeft == 0 && isOnBreak) {
       setIsOnBreak(false);
       setTimeLeft(sessionLength * 60);
       setSessionTitle('Session');
@@ -86,36 +87,33 @@ function App() {
 
   function countdown() {
     if (isCounting) {
-      const counter = setInterval(() => {
-        if (isCounting && timeLeft > 0) {
-          setTimeLeft(timeLeft - 1);
-        }
-        return clearInterval(counter);
-      }, 1000);
+      counter;
       resetTimer();
+    } else {
+      clearTimeout(counter);
     }
-    //  else {
-    //   return;
-    // }
+  }
+
+  function pauseSound() {
+    sound.pause();
+    sound.currentTime = 0;
+  }
+
+  function reset() {
+    clearTimeout(counter);
+    setIsCounting(false);
+    setTimeLeft(1500);
+    setBreakLength(5);
+    setSessionLength(25);
+    setSessionTitle('Session');
+    // sound.pause();
+    // sound.currentTime = 0;
+    // pauseSound();
   }
 
   useEffect(() => {
     countdown();
-  }, [isCounting, timeLeft]);
-
-  function reset() {
-    // clearInterval(counter);
-    if (isCounting) {
-      setIsCounting(false);
-    }
-
-    setBreakLength(5);
-    setSessionLength(25);
-    setTimeLeft(1500);
-    setSessionTitle('Session');
-    sound.pause();
-    // sound.currentTime = 0;
-  }
+  }, [isCounting, timeLeft, counter]);
 
   return (
     <>
