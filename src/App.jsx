@@ -19,14 +19,14 @@ function App() {
     if (breakLength < 60) {
       setBreakLength(breakLength + 1);
     }
-    return breakLength;
+    return;
   }
 
   function decrementBreakLength() {
     if (breakLength > 1) {
       setBreakLength(breakLength - 1);
     }
-    return breakLength;
+    return;
   }
 
   function incrementSessionLength() {
@@ -64,6 +64,8 @@ function App() {
     return `${formattedMinutes}:${formattedSeconds}`;
   }
 
+  const timeformatted = formatTime();
+
   function toggleCounter() {
     clearInterval(counter);
     setIsCounting(!isCounting);
@@ -82,7 +84,7 @@ function App() {
       setTimeLeft(sessionLength * 60);
       setSessionTitle('Session');
       sound.pause();
-      sound.currentTime = 0;
+      sound.seek(0);
     }
   }
 
@@ -106,7 +108,7 @@ function App() {
     setSessionLength(25);
     setSessionTitle('Session');
     sound.pause();
-    sound.currentTime = 0;
+    sound.currentTime = sound.seek(0);
     console.log('reset');
     console.log(`break length is ${breakLength}
     Session Length is ${sessionLength} time left is ${timeLeft}`);
@@ -177,7 +179,7 @@ function App() {
             {sessionTitle}
           </h2>
           <p id="time-left" className="text-8xl">
-            {formatTime()}
+            {timeformatted}
           </p>
         </div>
         <div className="flex items-center gap-3">
