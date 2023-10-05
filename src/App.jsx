@@ -45,13 +45,15 @@ function App() {
     return;
   }
 
-  function formatTime(minutes, seconds) {
-    minutes = Math.floor(timeLeft / 60);
+  function formatTime() {
+    const minutes = Math.floor(timeLeft / 60);
     // seconds = timeLeft - minutes * 60;
-    seconds = timeLeft % 60;
+    const seconds = timeLeft % 60;
     //To change if a problem occur
-    const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
-    const formattedSeconds = seconds < 10 ? '0' + seconds : seconds;
+    const formattedMinutes =
+      minutes < 10 && minutes >= 0 ? '0' + minutes : minutes;
+    const formattedSeconds =
+      seconds < 10 && seconds >= 0 ? '0' + seconds : seconds;
     return `${formattedMinutes}:${formattedSeconds}`;
   }
 
