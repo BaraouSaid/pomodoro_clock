@@ -71,13 +71,13 @@ function App() {
   }
 
   function resetTimer() {
-    if (!timeLeft && !isOnBreak) {
+    if (timeLeft == 0 && !isOnBreak) {
       setIsOnBreak(true);
       setTimeLeft(breakLength * 60);
       setSessionTitle('Break');
       sound.play();
     }
-    if (!timeLeft && isOnBreak) {
+    if (timeLeft == 0 && isOnBreak) {
       setIsOnBreak(false);
       setTimeLeft(sessionLength * 60);
       setSessionTitle('Session');
@@ -93,7 +93,7 @@ function App() {
       // setTimeLeft(timeLeft);
       console.log('countdown');
     } else {
-      setIsCounting(false);
+      // setIsCounting(false);
       clearInterval(counter);
     }
   }
@@ -108,7 +108,11 @@ function App() {
     sound.pause();
     sound.currentTime = 0;
     console.log('reset');
+    console.log(`break length is ${breakLength}
+    Session Length is ${sessionLength} time left is ${timeLeft}`);
   }
+
+  // const [isOnReset, setIsOnReset] = false;
 
   useEffect(() => {
     // if (isCounting) {
@@ -116,6 +120,8 @@ function App() {
     // }
 
     console.log('useEffect');
+    console.log(`break length is ${breakLength}
+    Session Length is ${sessionLength} time left is ${timeLeft}`);
   }, [isCounting, timeLeft, counter]);
 
   return (
@@ -183,7 +189,7 @@ function App() {
           <button
             id="reset"
             onClick={reset}
-            disabled={!isCounting && timeLeft == 1500}
+            // disabled={!isCounting && timeLeft == 1500}
           >
             <BsArrowRepeat className="hover:cursor-pointer" />
           </button>
