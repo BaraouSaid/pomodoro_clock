@@ -59,7 +59,13 @@ function App() {
 
   function toggleCounter() {
     // clearInterval(counter);
-    setIsCounting(!isCounting);
+    // setIsCounting(!isCounting);
+    if (isCounting) {
+      setIsCounting(false);
+    }
+    if (!isCounting) {
+      setIsCounting(true);
+    }
   }
 
   function resetTimer() {
