@@ -67,6 +67,7 @@ function App() {
   function toggleCounter() {
     clearInterval(counter);
     setIsCounting(!isCounting);
+    console.log('togglebutton');
   }
 
   function resetTimer() {
@@ -89,7 +90,10 @@ function App() {
     if (isCounting) {
       counter;
       resetTimer();
+      // setTimeLeft(timeLeft);
+      console.log('countdown');
     } else {
+      setIsCounting(false);
       clearInterval(counter);
     }
   }
@@ -103,10 +107,15 @@ function App() {
     setSessionTitle('Session');
     sound.pause();
     sound.currentTime = 0;
+    console.log('reset');
   }
 
   useEffect(() => {
+    // if (isCounting) {
     countdown();
+    // }
+
+    console.log('useEffect');
   }, [isCounting, timeLeft, counter]);
 
   return (
