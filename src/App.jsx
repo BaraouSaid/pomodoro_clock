@@ -69,13 +69,13 @@ function App() {
   }
 
   function resetTimer() {
-    if (timeLeft === 0 && !isOnBreak) {
+    if (timeLeft == 0 && !isOnBreak) {
       setIsOnBreak(true);
       setTimeLeft(breakLength * 60);
       setSessionTitle('Break');
       sound.play();
     }
-    if (timeLeft === 0 && isOnBreak) {
+    if (timeLeft == 0 && isOnBreak) {
       setIsOnBreak(false);
       setTimeLeft(sessionLength * 60);
       setSessionTitle('Session');
@@ -113,7 +113,7 @@ function App() {
     setSessionLength(25);
     setTimeLeft(1500);
     setSessionTitle('Session');
-    // sound.pause();
+    sound.pause();
     // sound.currentTime = 0;
   }
 
