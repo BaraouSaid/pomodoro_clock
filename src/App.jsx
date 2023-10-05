@@ -19,14 +19,14 @@ function App() {
     if (breakLength < 60) {
       setBreakLength(breakLength + 1);
     }
-    return;
+    return breakLength;
   }
 
   function decrementBreakLength() {
     if (breakLength > 1) {
       setBreakLength(breakLength - 1);
     }
-    return;
+    return breakLength;
   }
 
   function incrementSessionLength() {
@@ -45,28 +45,10 @@ function App() {
     return;
   }
 
-  function countdown() {
-    if (isCounting) {
-      const counter = setInterval(() => {
-        if (isCounting && timeLeft > 0) {
-          setTimeLeft(timeLeft - 1);
-        }
-        return clearInterval(counter);
-      }, 1000);
-      resetTimer();
-    }
-    //  else {
-    //   return clearInterval(counter);
-    // }
-  }
-
-  useEffect(() => {
-    countdown();
-  }, [isCounting, timeLeft]);
-
   function formatTime(minutes, seconds) {
     minutes = Math.floor(timeLeft / 60);
-    seconds = timeLeft - minutes * 60;
+    // seconds = timeLeft - minutes * 60;
+    seconds = timeLeft % 60;
     //To change if a problem occur
     const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
     const formattedSeconds = seconds < 10 ? '0' + seconds : seconds;
@@ -94,20 +76,42 @@ function App() {
     }
   }
 
+  function countdown() {
+    if (isCounting) {
+      const counter = setInterval(() => {
+        if (isCounting && timeLeft > 0) {
+          setTimeLeft(timeLeft - 1);
+        }
+        return clearInterval(counter);
+      }, 1000);
+      resetTimer();
+    }
+    //  else {
+    //   return;
+    // }
+  }
+
+  useEffect(() => {
+    countdown();
+  }, [isCounting, timeLeft]);
+
   function reset() {
     // clearInterval(counter);
-    setIsCounting(false);
+    if (isCounting) {
+      setIsCounting(false);
+    }
+
     setBreakLength(5);
     setSessionLength(25);
     setTimeLeft(1500);
     setSessionTitle('Session');
-    sound.pause();
-    sound.currentTime = 0;
+    // sound.pause();
+    // sound.currentTime = 0;
   }
 
   return (
     <>
-      <div className="flex flex-col items-center justify-center w-full h-screen gap-10 text-3xl font-bold bg-cyan-200">
+      <div className="flex flex-col items-center justify-center w-full min-h-screen gap-10 text-3xl font-bold bg-cyan-200">
         <div>
           <h1 className="mb-20 text-5xl font-extrabold">Pomodoro Clock</h1>
         </div>
