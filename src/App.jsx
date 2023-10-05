@@ -186,18 +186,14 @@ function App() {
               {isCounting ? <BsPauseFill /> : <BsFillPlayFill />}
             </button>
           </div>
-          <button
-            id="reset"
-            onClick={reset}
-            // disabled={!isCounting && timeLeft == 1500}
-          >
+          <button id="reset" onClick={reset} disabled={timeLeft == 1500}>
             <BsArrowRepeat className="hover:cursor-pointer" />
           </button>
         </div>
       </div>
       <audio
         id="beep"
-        preload="auto"
+        // preload="auto"
         src="https://raw.githubusercontent.com/freeCodeCamp/cdn/master/build/testable-projects-fcc/audio/BeepSound.wav"
       />
     </>
