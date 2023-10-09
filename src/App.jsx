@@ -79,22 +79,23 @@ function App() {
 
   function resetTimer() {
     if (timeLeft === 0 && !isOnBreak) {
-      setIsOnBreak(true);
-      setSessionTitle('Break');
-      sound.play();
-      if (timeLeft === 0 - 1) {
-        setTimeLeft(breakLength * 60);
-      }
+      setTimeout(
+        setIsOnBreak(true),
+        setSessionTitle('Break'),
+        sound.play(),
+        setTimeLeft(breakLength * 60),
+        1000
+      );
     }
 
     if (timeLeft === 0 && isOnBreak) {
-      setIsOnBreak(false);
-      setSessionTitle('Session');
-      sound.pause();
-      sound.currentTime = 0;
-      if (timeLeft === 0 - 1) {
-        setTimeLeft(sessionLength * 60);
-      }
+      setTimeout(
+        setIsOnBreak(false),
+        setSessionTitle('Session'),
+        sound.pause(),
+        (sound.currentTime = 0),
+        setTimeLeft(sessionLength * 60)
+      );
     }
   }
 
