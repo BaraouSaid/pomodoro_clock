@@ -155,7 +155,7 @@ function App() {
                 onClick={incrementBreakLength}
                 disabled={isCounting}
               >
-                <FaArrowUp className="text-yellow-600 hover:cursor-pointer" />
+                <FaArrowUp className="text-amber-500 hover:cursor-pointer" />
               </button>
               <p id="break-length">{breakLength}</p>
               <button
@@ -163,7 +163,7 @@ function App() {
                 onClick={decrementBreakLength}
                 disabled={isCounting}
               >
-                <FaArrowDown className="text-yellow-600 hover:cursor-pointer" />
+                <FaArrowDown className="text-amber-500 hover:cursor-pointer" />
               </button>
             </div>
           </div>
@@ -175,7 +175,7 @@ function App() {
                 onClick={incrementSessionLength}
                 disabled={isCounting}
               >
-                <FaArrowUp className="text-amber-600 hover:cursor-pointer" />
+                <FaArrowUp className="text-amber-500 hover:cursor-pointer" />
               </button>
               <p id="session-length">{sessionLength}</p>
               <button
@@ -183,12 +183,12 @@ function App() {
                 onClick={decrementSessionLength}
                 disabled={isCounting}
               >
-                <FaArrowDown className="text-amber-600 hover:cursor-pointer" />
+                <FaArrowDown className="text-amber-500 hover:cursor-pointer" />
               </button>
             </div>
           </div>
         </div>
-        <div className="flex flex-col items-center justify-center p-40 border-8 rounded-full h-80 w-80 bg-amber-500 border-amber-800">
+        <div className="flex flex-col items-center justify-center p-40 border-8 rounded-full h-80 w-80 bg-amber-500 border-amber-100">
           <h2 id="timer-label" className="text-3xl">
             {sessionTitle}
           </h2>
@@ -196,13 +196,18 @@ function App() {
             {formattedTime}
           </p>
         </div>
-        <div className="flex items-center gap-3">
-          <div className="flex gap-0 p-1 border-4 border-amber-600 rounded-xl hover:cursor-pointer">
+        <div className="flex items-center gap-8">
+          <div className="flex gap-0 p-1 border-4 text-amber-500 border-amber-500 rounded-xl hover:cursor-pointer">
             <button id="start_stop" onClick={toggleCounter}>
               {isCounting ? <BsPauseFill /> : <BsFillPlayFill />}
             </button>
           </div>
-          <button id="reset" onClick={reset} disabled={timeLeft == 1500}>
+          <button
+            id="reset"
+            className="text-amber-500"
+            onClick={reset}
+            disabled={timeLeft == 1500}
+          >
             <BsArrowRepeat className="hover:cursor-pointer" />
           </button>
         </div>
