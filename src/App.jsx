@@ -13,18 +13,21 @@ function App() {
   const [isOnBreak, setIsOnBreak] = useState(false);
   const [sessionTitle, setSessionTitle] = useState('Session');
 
+  const isPlaying = false;
   const sound = document.getElementById('beep');
 
-  function incrementBreakLength(prev) {
+  function incrementBreakLength() {
     if (breakLength < 60) {
-      setBreakLength(prev + 1);
+      setBreakLength(breakLength + 1);
+      console.log(breakLength);
     }
     return;
   }
 
-  function decrementBreakLength(prev) {
+  function decrementBreakLength() {
     if (breakLength > 1) {
-      setBreakLength(prev - 1);
+      setBreakLength(breakLength - 1);
+      console.log(breakLength);
     }
     return;
   }
@@ -33,6 +36,7 @@ function App() {
     if (sessionLength < 60) {
       setSessionLength(sessionLength + 1);
       setTimeLeft(timeLeft + 60);
+      console.log(sessionLength);
     }
     return;
   }
@@ -41,6 +45,7 @@ function App() {
     if (sessionLength > 1) {
       setSessionLength(sessionLength - 1);
       setTimeLeft(timeLeft - 60);
+      console.log(sessionLength);
     }
     return;
   }
@@ -73,32 +78,23 @@ function App() {
   }
 
   function resetTimer() {
-    // if (timeLeft == 0 && !isOnBreak) {
-    //   setIsOnBreak(true);
-    //   setTimeLeft(breakLength * 60);
-    //   setSessionTitle('Break');
-    //   sound.play();
-    // }
-    if (formattedTime == '00:00' && !isOnBreak) {
+    if (timeLeft === 0 && !isOnBreak) {
       setIsOnBreak(true);
-      setTimeLeft(breakLength * 60);
       setSessionTitle('Break');
       sound.play();
+      if (timeLeft === 0 - 1) {
+        setTimeLeft(breakLength * 60);
+      }
     }
 
-    // if (timeLeft == 0 && isOnBreak) {
-    //   setIsOnBreak(false);
-    //   setTimeLeft(sessionLength * 60);
-    //   setSessionTitle('Session');
-    //   sound.pause();
-    //   sound.currentTime = 0;
-    // }
-    if (formattedTime == '00:00' && isOnBreak) {
+    if (timeLeft === 0 && isOnBreak) {
       setIsOnBreak(false);
-      setTimeLeft(sessionLength * 60);
       setSessionTitle('Session');
       sound.pause();
       sound.currentTime = 0;
+      if (timeLeft === 0 - 1) {
+        setTimeLeft(sessionLength * 60);
+      }
     }
   }
 
@@ -121,14 +117,15 @@ function App() {
     setBreakLength(5);
     setSessionLength(25);
     setSessionTitle('Session');
-    sound.pause();
-    sound.currentTime = 0;
+    if (isOnBreak) {
+      sound.pause();
+      sound.currentTime = 0;
+    }
+
     // console.log('reset');
     // console.log(`break length is ${breakLength}
     // Session Length is ${sessionLength} time left is ${timeLeft}`);
   }
-
-  // const [isOnReset, setIsOnReset] = false;
 
   useEffect(() => {
     // if (isCounting) {
@@ -152,7 +149,7 @@ function App() {
             <div className="flex items-center gap-5">
               <button
                 id="break-increment"
-                onClick={() => incrementBreakLength(breakLength)}
+                onClick={incrementBreakLength}
                 disabled={isCounting}
               >
                 <FaArrowUp className="text-amber-500 hover:cursor-pointer" />
@@ -160,7 +157,7 @@ function App() {
               <p id="break-length">{breakLength}</p>
               <button
                 id="break-decrement"
-                onClick={() => decrementBreakLength(breakLength)}
+                onClick={decrementBreakLength}
                 disabled={isCounting}
               >
                 <FaArrowDown className="text-amber-500 hover:cursor-pointer" />
@@ -206,7 +203,7 @@ function App() {
             id="reset"
             className="text-amber-500"
             onClick={reset}
-            disabled={timeLeft == 1500}
+            // disabled={ === null}
           >
             <BsArrowRepeat className="hover:cursor-pointer" />
           </button>
