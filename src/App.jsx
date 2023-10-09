@@ -94,7 +94,8 @@ function App() {
         setSessionTitle('Session'),
         sound.pause(),
         (sound.currentTime = 0),
-        setTimeLeft(sessionLength * 60)
+        setTimeLeft(sessionLength * 60),
+        1000
       );
     }
   }
