@@ -142,7 +142,7 @@ function App() {
 
   return (
     <>
-      <div className="flex flex-col items-center justify-center w-full min-h-screen gap-10 text-3xl font-bold bg-cyan-200">
+      <div className="flex flex-col items-center justify-center w-full min-h-screen gap-10 text-3xl font-bold bg-cyan-800">
         <div>
           <h1 className="mb-20 text-5xl font-extrabold">Pomodoro Clock</h1>
         </div>
