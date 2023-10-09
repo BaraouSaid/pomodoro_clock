@@ -15,16 +15,16 @@ function App() {
 
   const sound = document.getElementById('beep');
 
-  function incrementBreakLength() {
+  function incrementBreakLength(prev) {
     if (breakLength < 60) {
-      setBreakLength(breakLength + 1);
+      setBreakLength(prev + 1);
     }
     return;
   }
 
-  function decrementBreakLength() {
+  function decrementBreakLength(prev) {
     if (breakLength > 1) {
-      setBreakLength(breakLength - 1);
+      setBreakLength(prev - 1);
     }
     return;
   }
@@ -123,9 +123,9 @@ function App() {
     setSessionTitle('Session');
     sound.pause();
     sound.currentTime = 0;
-    console.log('reset');
-    console.log(`break length is ${breakLength}
-    Session Length is ${sessionLength} time left is ${timeLeft}`);
+    // console.log('reset');
+    // console.log(`break length is ${breakLength}
+    // Session Length is ${sessionLength} time left is ${timeLeft}`);
   }
 
   // const [isOnReset, setIsOnReset] = false;
@@ -152,7 +152,7 @@ function App() {
             <div className="flex items-center gap-5">
               <button
                 id="break-increment"
-                onClick={incrementBreakLength}
+                onClick={() => incrementBreakLength(breakLength)}
                 disabled={isCounting}
               >
                 <FaArrowUp className="text-amber-500 hover:cursor-pointer" />
@@ -160,7 +160,7 @@ function App() {
               <p id="break-length">{breakLength}</p>
               <button
                 id="break-decrement"
-                onClick={decrementBreakLength}
+                onClick={() => decrementBreakLength(breakLength)}
                 disabled={isCounting}
               >
                 <FaArrowDown className="text-amber-500 hover:cursor-pointer" />
