@@ -13,7 +13,6 @@ function App() {
   const [isOnBreak, setIsOnBreak] = useState(false);
   const [sessionTitle, setSessionTitle] = useState('Session');
 
-  const isPlaying = false;
   const sound = document.getElementById('beep');
 
   function incrementBreakLength() {
@@ -51,7 +50,7 @@ function App() {
   }
 
   const counter = setInterval(() => {
-    if (isCounting && timeLeft > 0) {
+    if (isCounting && timeLeft >= 0) {
       setTimeLeft(timeLeft - 1);
     }
     return clearInterval(counter);
@@ -74,29 +73,25 @@ function App() {
   function toggleCounter() {
     clearInterval(counter);
     setIsCounting(!isCounting);
-    console.log('togglebutton');
+    // console.log('togglebutton');
   }
 
   function resetTimer() {
-    if (timeLeft === 0 && !isOnBreak) {
-      setTimeout(
-        setIsOnBreak(true),
-        setSessionTitle('Break'),
-        sound.play(),
-        setTimeLeft(breakLength * 60),
-        1000
-      );
+    if (!timeLeft && !isOnBreak) {
+      setTimeLeft(true);
+      setIsOnBreak(true);
+      setSessionTitle('Break');
+      sound.play();
+      setTimeLeft(breakLength * 60);
     }
 
-    if (timeLeft === 0 && isOnBreak) {
-      setTimeout(
-        setIsOnBreak(false),
-        setSessionTitle('Session'),
-        sound.pause(),
-        (sound.currentTime = 0),
-        setTimeLeft(sessionLength * 60),
-        1000
-      );
+    if (!timeLeft && isOnBreak) {
+      setTimeLeft(true);
+      setIsOnBreak(false);
+      setSessionTitle('Session');
+      sound.pause();
+      sound.currentTime = 0;
+      setTimeLeft(sessionLength * 60);
     }
   }
 
@@ -104,10 +99,8 @@ function App() {
     if (isCounting) {
       counter;
       resetTimer();
-      // setTimeLeft(timeLeft);
       console.log('countdown');
     } else {
-      // setIsCounting(false);
       clearInterval(counter);
     }
   }
@@ -130,9 +123,9 @@ function App() {
   }
 
   useEffect(() => {
-    // if (isCounting) {
-    countdown();
-    // }
+    if (isCounting) {
+      countdown();
+    }
 
     console.log('useEffect');
     console.log(`break length is ${breakLength}
