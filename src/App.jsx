@@ -10,7 +10,7 @@ function App() {
   const [sessionLength, setSessionLength] = useState(25);
   const [timeLeft, setTimeLeft] = useState(1500);
   const [isCounting, setIsCounting] = useState(false);
-  const [isOnBreak, setIsOnBreak] = useState(false);
+  // const [isOnBreak, setIsOnBreak] = useState(false);
   const [sessionTitle, setSessionTitle] = useState('Session');
 
   // const sound = document.getElementById('beep');
@@ -79,19 +79,21 @@ function App() {
   function resetTimer() {
     const sound = document.getElementById('beep');
 
-    if (timeLeft == -1 && !isOnBreak) {
-      setTimeLeft(true);
-      setIsOnBreak(true);
+    if (timeLeft == -1 && sessionTitle === 'Session') {
+      // setIsOnBreak(true);
       setSessionTitle('Break');
-      setTimeLeft(breakLength * 60);
       sound.play();
+      setTimeLeft(true);
+      setIsCounting(true);
+      setTimeLeft(breakLength * 60);
     }
 
-    if (timeLeft == -1 && isOnBreak) {
+    if (timeLeft == -1 && sessionTitle === 'Break') {
       setTimeLeft(true);
-      setIsOnBreak(false);
-      setSessionTitle('Session');
+      setIsCounting(true);
       setTimeLeft(sessionLength * 60);
+      // setIsOnBreak(false);
+      setSessionTitle('Session');
       sound.pause();
       sound.currentTime = 0;
     }
