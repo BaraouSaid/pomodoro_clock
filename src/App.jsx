@@ -13,7 +13,7 @@ function App() {
   const [isOnBreak, setIsOnBreak] = useState(false);
   const [sessionTitle, setSessionTitle] = useState('Session');
 
-  const sound = document.getElementById('beep');
+  // const sound = document.getElementById('beep');
 
   function incrementBreakLength() {
     if (breakLength < 60) {
@@ -68,7 +68,7 @@ function App() {
     return `${formattedMinutes}:${formattedSeconds}`;
   }
 
-  const formattedTime = formatTime();
+  // const formattedTime = formatTime();
 
   function toggleCounter() {
     clearInterval(counter);
@@ -77,21 +77,23 @@ function App() {
   }
 
   function resetTimer() {
-    if (!timeLeft && !isOnBreak) {
+    const sound = document.getElementById('beep');
+
+    if (timeLeft == -1 && !isOnBreak) {
       setTimeLeft(true);
       setIsOnBreak(true);
       setSessionTitle('Break');
-      sound.play();
       setTimeLeft(breakLength * 60);
+      sound.play();
     }
 
-    if (!timeLeft && isOnBreak) {
+    if (timeLeft == -1 && isOnBreak) {
       setTimeLeft(true);
       setIsOnBreak(false);
       setSessionTitle('Session');
+      setTimeLeft(sessionLength * 60);
       sound.pause();
       sound.currentTime = 0;
-      setTimeLeft(sessionLength * 60);
     }
   }
 
@@ -106,16 +108,17 @@ function App() {
   }
 
   function reset() {
+    const sound = document.getElementById('beep');
+
     clearInterval(counter);
     setIsCounting(false);
     setTimeLeft(1500);
     setBreakLength(5);
     setSessionLength(25);
     setSessionTitle('Session');
-    if (isOnBreak) {
-      sound.pause();
-      sound.currentTime = 0;
-    }
+
+    sound.pause();
+    sound.currentTime = 0;
 
     // console.log('reset');
     // console.log(`break length is ${breakLength}
@@ -185,7 +188,7 @@ function App() {
             {sessionTitle}
           </h2>
           <p id="time-left" className="text-8xl">
-            {formattedTime}
+            {formatTime()}
           </p>
         </div>
         <div className="flex items-center gap-8">
@@ -194,12 +197,7 @@ function App() {
               {isCounting ? <BsPauseFill /> : <BsFillPlayFill />}
             </button>
           </div>
-          <button
-            id="reset"
-            className="text-amber-500"
-            onClick={reset}
-            // disabled={ === null}
-          >
+          <button id="reset" className="text-amber-500" onClick={reset}>
             <BsArrowRepeat className="hover:cursor-pointer" />
           </button>
         </div>
